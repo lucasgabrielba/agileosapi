@@ -3,6 +3,7 @@
 namespace Domains\Organizations\Models;
 
 use Domains\Shared\Models\Address;
+use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,8 @@ use Laravel\Scout\Searchable;
 
 class Organization extends Model
 {
-    use HasFactory,
+    use FiltersNullValues,
+        HasFactory,
         HasUuids,
         Searchable,
         SoftDeletes;

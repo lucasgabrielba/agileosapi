@@ -3,6 +3,7 @@
 namespace Domains\Shared\Models;
 
 use Domains\Organizations\Models\Organization;
+use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model
 {
-    use HasFactory,
+    use FiltersNullValues,
+        HasFactory,
         HasUuids,
         SoftDeletes;
 
