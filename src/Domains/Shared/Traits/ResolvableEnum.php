@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace Domains\Shared\Traits;
 
 trait ResolvableEnum
 {

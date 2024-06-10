@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace Domains\Organizations\Services;
 
+use Domains\Organizations\Contracts\OrganizationsServiceInterface;
 use Domains\Organizations\Models\Organization;
 
 class OrganizationsService implements OrganizationsServiceInterface

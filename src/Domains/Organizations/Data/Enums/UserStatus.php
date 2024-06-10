@@ -2,7 +2,7 @@
 
 namespace Domains\Organizations\Data\Enums;
 
-use App\Traits\ResolvableEnum;
+use Domains\Shared\Traits\ResolvableEnum;
 
 enum UserStatus: string
 {

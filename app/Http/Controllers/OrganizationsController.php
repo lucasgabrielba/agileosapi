@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateOrganizationRequest;
-use App\Http\Requests\UpdateOrganizationRequest;
-use App\Services\OrganizationsServiceInterface;
+use App\Http\Requests\Organizations\CreateOrganizationRequest;
+use App\Http\Requests\Organizations\UpdateOrganizationRequest;
+use Domains\Organizations\Contracts\OrganizationsServiceInterface;
+use Domains\Organizations\Services\OrganizationsService;
 
 class OrganizationsController extends Controller
 {
     protected OrganizationsServiceInterface $organizationsService;
 
-    public function __construct(OrganizationsServiceInterface $organizationsService)
+    public function __construct(OrganizationsService $organizationsService)
     {
         $this->organizationsService = $organizationsService;
     }
