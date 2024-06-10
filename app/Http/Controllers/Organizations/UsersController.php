@@ -7,6 +7,7 @@ use App\Http\Requests\Organizations\Users\CreateUserRequest;
 use App\Http\Requests\Organizations\Users\UpdateUserRequest;
 use Domains\Organizations\Contracts\UsersServiceInterface;
 use Domains\Organizations\Services\UsersService;
+use Illuminate\Support\Facades\Request;
 
 class UsersController extends Controller
 {
@@ -17,9 +18,11 @@ class UsersController extends Controller
         $this->usersService = $usersService;
     }
 
-    public function index(string $organizationId)
+    public function index(Request $request, string $organizationId)
     {
-        $users = $this->usersService->list($organizationId);
+        $filters = $request->all();
+
+        $users = $this->usersService->list($organizationId, $filters);
 
         return response()->json($users);
     }
@@ -27,14 +30,14 @@ class UsersController extends Controller
     public function store(CreateUserRequest $request, string $organizationId)
     {
         $data = $request->validated();
-        $user = $this->usersService->create($data, $organizationId);
+        $user = $this->usersService->create($organizationId, $data);
 
         return response()->json($user, 201);
     }
 
     public function show(string $userId)
     {
-        $user = $this->usersService->getOne($userId);
+        $user = $this->usersService->get($userId);
 
         return response()->json($user);
     }

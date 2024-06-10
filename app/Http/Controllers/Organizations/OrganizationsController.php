@@ -7,6 +7,7 @@ use App\Http\Requests\Organizations\Organizations\CreateOrganizationRequest;
 use App\Http\Requests\Organizations\Organizations\UpdateOrganizationRequest;
 use Domains\Organizations\Contracts\OrganizationsServiceInterface;
 use Domains\Organizations\Services\OrganizationsService;
+use Illuminate\Support\Facades\Request;
 
 class OrganizationsController extends Controller
 {
@@ -17,9 +18,11 @@ class OrganizationsController extends Controller
         $this->organizationsService = $organizationsService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $organizations = $this->organizationsService->list();
+        $filters = $request->all();
+
+        $organizations = $this->organizationsService->list($filters);
 
         return response()->json($organizations);
     }
@@ -34,7 +37,7 @@ class OrganizationsController extends Controller
 
     public function show($organizationId)
     {
-        $organization = $this->organizationsService->getOne($organizationId);
+        $organization = $this->organizationsService->get($organizationId);
 
         return response()->json($organization);
     }

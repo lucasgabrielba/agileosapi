@@ -3,13 +3,17 @@
 namespace Domains\Organizations\Actions\Organizations;
 
 use Domains\Organizations\Models\Organization;
+use Domains\Shared\Helpers\ListDataHelper;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ListOrganizations
 {
-    public static function execute(): array
+    public static function execute(array $filters): LengthAwarePaginator
     {
-        $organizations = Organization::all();
+        $helper = new ListDataHelper(new Organization);
 
-        return $organizations->toArray();
+        $organizations = $helper->list($filters);
+
+        return $organizations;
     }
 }

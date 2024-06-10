@@ -9,12 +9,13 @@ use Domains\Organizations\Actions\Organizations\ListOrganizations;
 use Domains\Organizations\Actions\Organizations\UpdateOrganization;
 use Domains\Organizations\Contracts\OrganizationsServiceInterface;
 use Domains\Organizations\Models\Organization;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrganizationsService implements OrganizationsServiceInterface
 {
-    public function list()
+    public function list(array $filters): LengthAwarePaginator
     {
-        return ListOrganizations::execute();
+        return ListOrganizations::execute($filters);
     }
 
     public function create(array $data): Organization
@@ -22,7 +23,7 @@ class OrganizationsService implements OrganizationsServiceInterface
         return CreateOrganization::execute($data);
     }
 
-    public function getOne(string $organizationId): Organization
+    public function get(string $organizationId): Organization
     {
         return GetOrganization::execute($organizationId);
     }

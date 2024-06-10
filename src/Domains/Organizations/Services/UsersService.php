@@ -10,22 +10,25 @@ use Domains\Organizations\Actions\Users\UpdateUser;
 use Domains\Organizations\Contracts\UsersServiceInterface;
 use Domains\Organizations\Models\Organization;
 use Domains\Organizations\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UsersService implements UsersServiceInterface
 {
-    public function list(string $organizationId)
+    public function list(string $organizationId, array $filters): LengthAwarePaginator
     {
-        return ListUsers::execute($organizationId);
+        $organization = Organization::findOrFail($organizationId);
+
+        return ListUsers::execute($organization, $filters);
     }
 
-    public function create(array $data, string $organizationId): User
+    public function create(string $organizationId, array $data): User
     {
         $organization = Organization::findOrFail($organizationId);
 
         return CreateUser::execute($data, $organization);
     }
 
-    public function getOne(string $userId): User
+    public function get(string $userId): User
     {
         return GetUser::execute($userId);
     }

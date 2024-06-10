@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\LaravelData\WithData;
+use Laravel\Scout\Searchable;
 
 class Organization extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes, WithData;
+    use HasFactory,
+        HasUuids,
+        Searchable,
+        SoftDeletes;
 
     public $incrementing = false;
 
@@ -28,6 +31,15 @@ class Organization extends Model
     protected $casts = [
         'phones' => 'array',
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'document' => $this->document,
+        ];
+    }
 
     public function users()
     {
