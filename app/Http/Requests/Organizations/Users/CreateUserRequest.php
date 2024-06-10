@@ -22,8 +22,8 @@ class CreateUserRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'phone' => 'required|string|min:10|max:15',
+            'password' => 'required|string|min:8',
+            'password_confirmation' => 'required|string|min:8|same:password',
         ];
     }
 
@@ -39,10 +39,9 @@ class CreateUserRequest extends FormRequest
             'email.unique' => 'Este e-mail já está sendo usado.',
             'password.required' => 'A senha é obrigatória.',
             'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
-            'password.confirmed' => 'A confirmação da senha não corresponde.',
-            'phone.required' => 'O telefone é obrigatório.',
-            'phone.min' => 'O telefone deve ter no mínimo 10 caracteres.',
-            'phone.max' => 'O telefone deve ter no máximo 15 caracteres.',
+            'password_confirmation.required' => 'A confirmação de senha é obrigatória.',
+            'password_confirmation.min' => 'A confirmação de senha deve ter pelo menos 8 caracteres.',
+            'password_confirmation.same' => 'A confirmação de senha não corresponde à senha.',
         ];
     }
 }

@@ -7,7 +7,7 @@ use App\Http\Requests\Organizations\Organizations\CreateOrganizationRequest;
 use App\Http\Requests\Organizations\Organizations\UpdateOrganizationRequest;
 use Domains\Organizations\Contracts\OrganizationsServiceInterface;
 use Domains\Organizations\Services\OrganizationsService;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class OrganizationsController extends Controller
 {

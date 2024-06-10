@@ -7,7 +7,7 @@ use App\Http\Requests\Organizations\Users\CreateUserRequest;
 use App\Http\Requests\Organizations\Users\UpdateUserRequest;
 use Domains\Organizations\Contracts\UsersServiceInterface;
 use Domains\Organizations\Services\UsersService;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -35,14 +35,14 @@ class UsersController extends Controller
         return response()->json($user, 201);
     }
 
-    public function show(string $userId)
+    public function show(string $organizationId, string $userId)
     {
         $user = $this->usersService->get($userId);
 
         return response()->json($user);
     }
 
-    public function update(UpdateUserRequest $request, string $userId)
+    public function update(UpdateUserRequest $request, string $organizationId, string $userId)
     {
         $data = $request->validated();
         $user = $this->usersService->update($userId, $data);
@@ -50,7 +50,7 @@ class UsersController extends Controller
         return response()->json($user);
     }
 
-    public function destroy(string $userId)
+    public function destroy(string $organizationId, string $userId)
     {
         $this->usersService->destroy($userId);
 

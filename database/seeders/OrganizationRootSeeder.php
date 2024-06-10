@@ -27,6 +27,7 @@ class OrganizationRootSeeder extends Seeder
         ]);
 
         $organization = OrganizationFactory::new()->create([
+            'id' => '9c416fda-efd3-469c-a42f-3f7910685fd0',
             'name' => 'Root Organization',
             'email' => 'root@root.com',
             'phones' => ['(11)99999-9999'],
@@ -35,6 +36,7 @@ class OrganizationRootSeeder extends Seeder
         ]);
 
         $user = UserFactory::new()->create([
+            'id' => '9c41ab6a-7ee2-4642-9069-542e08ddea3f',
             'name' => 'Root User',
             'email' => 'root@root.com',
             'password' => bcrypt('root'),

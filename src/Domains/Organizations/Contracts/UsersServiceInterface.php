@@ -2,7 +2,7 @@
 
 namespace Domains\Organizations\Contracts;
 
-use App\Contracts\DomainServiceInterface;
+use Domains\Shared\Contracts\DomainServiceInterface;
 
 interface UsersServiceInterface extends DomainServiceInterface
 {

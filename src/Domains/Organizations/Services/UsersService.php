@@ -44,6 +44,6 @@ class UsersService implements UsersServiceInterface
     {
         $user = User::findOrFail($userId);
 
-        return DeleteUser::execute($user);
+        DeleteUser::execute($user);
     }
 }
