@@ -1,5 +1,5 @@
 <?php
 
-use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\Organizations\OrganizationsController;
 
 Route::apiResource('organizations', OrganizationsController::class);

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Organizations;
 
-use App\Http\Requests\Organizations\CreateOrganizationRequest;
-use App\Http\Requests\Organizations\UpdateOrganizationRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Organizations\Organizations\CreateOrganizationRequest;
+use App\Http\Requests\Organizations\Organizations\UpdateOrganizationRequest;
 use Domains\Organizations\Contracts\OrganizationsServiceInterface;
 use Domains\Organizations\Services\OrganizationsService;
 
