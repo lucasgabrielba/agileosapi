@@ -38,6 +38,6 @@ class OrganizationsService implements OrganizationsServiceInterface
     {
         $organization = Organization::findOrFail($organizationId);
 
-        return DeleteOrganization::execute($organization);
+        DeleteOrganization::execute($organization);
     }
 }

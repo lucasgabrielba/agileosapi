@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\LaravelData\WithData;
 
 class Address extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes;
+    use HasFactory,
+        HasUuids,
+        SoftDeletes,
+        WithData;
 
     public $incrementing = false;
 
@@ -26,7 +30,6 @@ class Address extends Model
         'country',
         'postal_code',
         'reference',
-        'user_id',
         'organization_id',
     ];
 
