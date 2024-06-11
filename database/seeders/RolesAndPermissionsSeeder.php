@@ -13,20 +13,33 @@ class RolesAndPermissionsSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $allPermissions = [
+        $permissions = [
             'view:orders',
+            'create:orders',
             'edit:orders',
             'delete:orders',
-            'create:orders',
+
+            'view:organizations',
+            'create:organizations',
+            'edit:organizations',
+            'delete:organizations',
+
+            'view:users',
+            'create:users',
+            'edit:users',
+            'delete:users',
         ];
 
         $roles = [
+            'user_manager' => ['view:users', 'edit:users', 'create:users'],
             'orders_manager' => ['view:orders', 'edit:orders', 'create:orders'],
-            'admin' => $allPermissions,
+            'organization_manager' => ['view:organizations', 'edit:organizations', 'create:organizations'],
+
+            'admin' => $permissions,
         ];
 
         // Create permissions
-        foreach ($allPermissions as $permission) {
+        foreach ($permissions as $permission) {
             Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'api']);
         }
 
