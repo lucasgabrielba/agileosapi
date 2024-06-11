@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\Clients\Actions\Clients;
+namespace Domains\Orders\Actions\Clients;
 
 use Domains\Orders\Events\Clients\ClientDeleted;
 use Domains\Orders\Models\Client;
