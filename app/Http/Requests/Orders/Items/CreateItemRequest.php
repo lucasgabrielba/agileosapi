@@ -21,9 +21,12 @@ class CreateItemRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'password_confirmation' => 'required|string|min:8|same:password',
+            'type' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'serial' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'client_id' => 'required|exists:clients,id',
+            'organization_id' => 'required|exists:organizations,id',
         ];
     }
 
@@ -34,14 +37,14 @@ class CreateItemRequest extends FormRequest
     {
         return [
             'name.required' => 'O nome é obrigatório.',
-            'email.required' => 'O e-mail é obrigatório.',
-            'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
-            'email.unique' => 'Este e-mail já está sendo usado.',
-            'password.required' => 'A senha é obrigatória.',
-            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
-            'password_confirmation.required' => 'A confirmação de senha é obrigatória.',
-            'password_confirmation.min' => 'A confirmação de senha deve ter pelo menos 8 caracteres.',
-            'password_confirmation.same' => 'A confirmação de senha não corresponde à senha.',
+            'type.required' => 'O tipo é obrigatório.',
+            'model.required' => 'O modelo é obrigatório.',
+            'serial.required' => 'O número de série é obrigatório.',
+            'brand.required' => 'A marca é obrigatória.',
+            'client_id.required' => 'O cliente é obrigatório.',
+            'client_id.exists' => 'O cliente selecionado não existe.',
+            'organization_id.required' => 'A organização é obrigatória.',
+            'organization_id.exists' => 'A organização selecionada não existe.',
         ];
     }
 }

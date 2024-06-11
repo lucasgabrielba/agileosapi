@@ -19,13 +19,14 @@ class UpdateItemRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|unique:users,email,',
-            'password' => 'sometimes|nullable|string|min:8|confirmed',
-            'password_confirmation' => 'sometimes|string|min:8|same:password',
-            'status' => 'sometimes|string|in:active,inactive',
+            'name' => 'sometimes|required|string|max:255',
+            'type' => 'sometimes|required|string|max:255',
+            'model' => 'sometimes|required|string|max:255',
+            'serial' => 'sometimes|required|string|max:255',
+            'brand' => 'sometimes|required|string|max:255',
+            'client_id' => 'sometimes|required|exists:clients,id',
+            'organization_id' => 'sometimes|required|exists:organizations,id',
         ];
     }
 
@@ -35,14 +36,15 @@ class UpdateItemRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.string' => 'O nome deve ser uma string.',
-            'name.max' => 'O nome deve ter no máximo 255 caracteres.',
-            'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
-            'email.unique' => 'Este e-mail já está sendo usado.',
-            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
-            'password_confirmation.min' => 'A confirmação de senha deve ter pelo menos 8 caracteres.',
-            'password.same' => 'A senha e a confirmação de senha devem ser iguais.',
-            'status.in' => 'O status deve ser active ou inactive.',
+            'name.required' => 'O nome é obrigatório.',
+            'type.required' => 'O tipo é obrigatório.',
+            'model.required' => 'O modelo é obrigatório.',
+            'serial.required' => 'O número de série é obrigatório.',
+            'brand.required' => 'A marca é obrigatória.',
+            'client_id.required' => 'O cliente é obrigatório.',
+            'client_id.exists' => 'O cliente selecionado não existe.',
+            'organization_id.required' => 'A organização é obrigatória.',
+            'organization_id.exists' => 'A organização selecionada não existe.',
         ];
     }
 }
