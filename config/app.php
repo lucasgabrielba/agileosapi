@@ -123,4 +123,17 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Administrator Email
+    |--------------------------------------------------------------------------
+    |
+    | This value is the email of the administrator, which will be used when the
+    | framework needs to place the administrator's email in a notification or
+    | other UI elements where an administrator email needs to be displayed.
+    |
+    */
+
+    'admin_email' => env('ADMIN_EMAIL', 'root@root.com'),
+
 ];

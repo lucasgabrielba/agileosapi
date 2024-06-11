@@ -11,9 +11,11 @@
         "php": "^8.2",
         "http-interop/http-factory-guzzle": "^1.2",
         "laravel/framework": "^11.9",
+        "laravel/horizon": "*",
         "laravel/reverb": "^1.0@beta",
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.9",
+        "laravel/telescope": "*",
         "laravel/tinker": "^2.9",
         "meilisearch/meilisearch-php": "^1.8",
         "spatie/laravel-permission": "^6.7"
