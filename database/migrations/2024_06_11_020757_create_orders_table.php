@@ -18,7 +18,6 @@ class CreateOrdersTable extends Migration
             $table->text('internal_notes')->nullable();
             $table->json('order_history')->nullable();
 
-            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('closed_at')->nullable();
             $table->timestamp('estimated_date')->nullable();
             $table->timestamp('end_of_warranty_date')->nullable();

@@ -25,7 +25,7 @@ class CreateOrderRequest extends FormRequest
             'client.phones' => 'required|array',
             'client.document' => 'nullable|string|max:255',
 
-            'client.address' => 'nullable|arrary',
+            'client.address' => 'nullable|array',
             'client.address.street' => 'nullable|string',
             'client.address.number' => 'nullable|string',
             'client.address.complement' => 'nullable|string',
@@ -37,10 +37,10 @@ class CreateOrderRequest extends FormRequest
             'client.address.reference' => 'nullable|string',
 
             'items' => 'nullable|array',
-            'items.*.type' => 'required|string',
-            'items.*.model' => 'required|string',
-            'items.*.brand' => 'required|string',
-            'items.*.serial' => 'required|string',
+            'items.*.type' => 'nullable|string',
+            'items.*.model' => 'nullable|string',
+            'items.*.brand' => 'nullable|string',
+            'items.*.serial' => 'nullable|string',
 
             'problem_description' => 'required|string',
             'priority' => 'nullable|in:normal,high',
@@ -59,7 +59,7 @@ class CreateOrderRequest extends FormRequest
 
             'problem_description.required' => 'A descrição do problema é obrigatória.',
             'priority.required' => 'A prioridade é obrigatória.',
-            'priority.in' => 'A prioridade deve ser normal ou higth.',
+            'priority.in' => 'A prioridade deve ser normal ou high.',
         ];
     }
 }
