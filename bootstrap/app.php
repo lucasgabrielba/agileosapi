@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->statefulApi();
+        $middleware->append('throttle:api');
         $middleware->append(JsonResponseMiddleware::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
