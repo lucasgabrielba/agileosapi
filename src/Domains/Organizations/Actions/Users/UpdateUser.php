@@ -11,9 +11,9 @@ class UpdateUser
     {
         $user->update($data);
 
-        $organization_id = $user->organization_id;
+        $organizationId = $user->organizationId;
 
-        event(new UserUpdated($organization_id, $user));
+        event(new UserUpdated($organizationId, $user));
 
         return $user;
     }

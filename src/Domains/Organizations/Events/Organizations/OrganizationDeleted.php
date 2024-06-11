@@ -15,17 +15,17 @@ class OrganizationDeleted implements ShouldBroadcast
 
     public $organization;
 
-    public $organization_id;
+    public $organizationId;
 
-    public function __construct(string $organization_id)
+    public function __construct(string $organizationId)
     {
-        $this->organization_id = $organization_id;
+        $this->organizationId = $organizationId;
     }
 
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(
-            $this->organization_id,
+            $this->organizationId,
             PermissionsEnum::DELETE_ORGANIZATIONS
         );
     }

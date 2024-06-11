@@ -8,14 +8,14 @@ use Illuminate\Broadcasting\PrivateChannel;
 
 class DispatchEventsByPermission
 {
-    public static function execute(string $organization_id, PermissionsEnum $permission): array
+    public static function execute(string $organizationId, PermissionsEnum $permission): array
     {
-        $organization = Organization::findorFail($organization_id);
+        $organization = Organization::findorFail($organizationId);
 
-        $allowed_users = $organization->users()->permission($permission->name)->get();
+        $allowedUsers = $organization->users()->permission($permission->name)->get();
 
         $channels = [];
-        foreach ($allowed_users as $user) {
+        foreach ($allowedUsers as $user) {
             $channels[] = new PrivateChannel('organizations.'.$organization->id.'.users.'.$user->id);
         }
 

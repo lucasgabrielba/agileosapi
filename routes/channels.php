@@ -1,7 +1,8 @@
 <?php
 
+use Domains\Organizations\Models\User;
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('organizations.{organizationId}.users.{userId}', function (User $user, $organizationId, $userId) {
+    return $user->organization->id === $organizationId && $user->id === $userId;
 });

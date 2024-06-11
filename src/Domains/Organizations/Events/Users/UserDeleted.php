@@ -15,18 +15,18 @@ class UserDeleted implements ShouldBroadcast
 
     public $user;
 
-    public $organization_id;
+    public $organizationId;
 
-    public function __construct(string $organization_id, string $user_id)
+    public function __construct(string $organizationId, string $userId)
     {
-        $this->organization_id = $organization_id;
-        $this->user_id = $user_id;
+        $this->organizationId = $organizationId;
+        $this->userId = $userId;
     }
 
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(
-            $this->organization_id,
+            $this->organizationId,
             PermissionsEnum::DELETE_USERS
         );
     }
