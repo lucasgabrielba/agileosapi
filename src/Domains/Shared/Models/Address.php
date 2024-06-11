@@ -2,6 +2,7 @@
 
 namespace Domains\Shared\Models;
 
+use Domains\Orders\Models\Client;
 use Domains\Organizations\Models\Organization;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -36,5 +37,10 @@ class Address extends Model
     public function organization()
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
 }

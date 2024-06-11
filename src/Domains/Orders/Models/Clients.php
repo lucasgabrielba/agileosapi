@@ -3,6 +3,7 @@
 namespace Domains\Orders\Models;
 
 use Domains\Organizations\Models\Organization;
+use Domains\Shared\Models\Address;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +29,7 @@ class Client extends Model
         'phones',
         'document',
         'organization_id',
+        'address_id',
     ];
 
     public function toSearchableArray()
@@ -42,6 +44,11 @@ class Client extends Model
     public function organization()
     {
         return $this->belongsTo(Organization::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(Address::class);
     }
 
     public function items()

@@ -17,11 +17,13 @@ class CreateClientsTable extends Migration
             $table->string('document')->unique();
 
             $table->uuid('organization_id');
+            $table->uuid('address_id')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->foreign('address_id')->references('id')->on('addresses');
         });
     }
 

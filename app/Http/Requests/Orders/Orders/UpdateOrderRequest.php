@@ -19,13 +19,16 @@ class UpdateOrderRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|unique:users,email,',
-            'password' => 'sometimes|nullable|string|min:8|confirmed',
-            'password_confirmation' => 'sometimes|string|min:8|same:password',
-            'status' => 'sometimes|string|in:active,inactive',
+            'internal_notes' => 'nullable|string',
+            'problem_description' => 'sometimes|required|string',
+            'budget_description' => 'nullable|string',
+            'estimated_date' => 'nullable|date',
+            'end_of_warranty_date' => 'nullable|date',
+            'is_reentry' => 'sometimes|required|boolean',
+            'priority' => 'sometimes|required|in:normal,high',
+            'status' => 'sometimes|required|string|max:255',
+            'attachments' => 'nullable|json',
         ];
     }
 
@@ -35,14 +38,13 @@ class UpdateOrderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.string' => 'O nome deve ser uma string.',
-            'name.max' => 'O nome deve ter no máximo 255 caracteres.',
-            'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
-            'email.unique' => 'Este e-mail já está sendo usado.',
-            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
-            'password_confirmation.min' => 'A confirmação de senha deve ter pelo menos 8 caracteres.',
-            'password.same' => 'A senha e a confirmação de senha devem ser iguais.',
-            'status.in' => 'O status deve ser active ou inactive.',
+            'number.required' => 'O número da ordem é obrigatório.',
+            'problem_description.required' => 'A descrição do problema é obrigatória.',
+            'created_at.required' => 'A data de criação é obrigatória.',
+            'is_reentry.required' => 'É necessário informar se é uma reentrada.',
+            'priority.required' => 'A prioridade é obrigatória.',
+            'priority.in' => 'A prioridade deve ser normal ou high.',
+            'status.required' => 'O status é obrigatório.',
         ];
     }
 }

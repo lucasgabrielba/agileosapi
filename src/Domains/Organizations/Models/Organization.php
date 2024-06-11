@@ -29,6 +29,7 @@ class Organization extends Model
         'phones',
         'document',
         'status',
+        'preferences',
     ];
 
     protected $casts = [

@@ -20,10 +20,30 @@ class CreateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'password_confirmation' => 'required|string|min:8|same:password',
+            'client.name' => 'required|string|max:255',
+            'client.email' => 'nullable|email',
+            'client.phones' => 'required|array',
+            'client.document' => 'nullable|string|max:255',
+
+            'client.address' => 'nullable|arrary',
+            'client.address.street' => 'nullable|string',
+            'client.address.number' => 'nullable|string',
+            'client.address.complement' => 'nullable|string',
+            'client.address.district' => 'nullable|string',
+            'client.address.city' => 'nullable|string',
+            'client.address.state' => 'nullable|string',
+            'client.address.country' => 'nullable|string',
+            'client.address.postal_code' => 'nullable|string',
+            'client.address.reference' => 'nullable|string',
+
+            'items' => 'nullable|array',
+            'items.*.model' => 'required|string',
+            'items.*.brand' => 'required|string',
+            'items.*.serial' => 'required|string',
+
+            'problem_description' => 'required|string',
+            'priority' => 'nullable|in:normal,high',
+            'attachments' => 'nullable|json',
         ];
     }
 
@@ -33,15 +53,12 @@ class CreateOrderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'O nome é obrigatório.',
-            'email.required' => 'O e-mail é obrigatório.',
-            'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
-            'email.unique' => 'Este e-mail já está sendo usado.',
-            'password.required' => 'A senha é obrigatória.',
-            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
-            'password_confirmation.required' => 'A confirmação de senha é obrigatória.',
-            'password_confirmation.min' => 'A confirmação de senha deve ter pelo menos 8 caracteres.',
-            'password_confirmation.same' => 'A confirmação de senha não corresponde à senha.',
+            'client.name.required' => 'O nome do cliente é obrigatório.',
+            'client.phones.required' => 'O telefone do cliente é obrigatório.',
+
+            'problem_description.required' => 'A descrição do problema é obrigatória.',
+            'priority.required' => 'A prioridade é obrigatória.',
+            'priority.in' => 'A prioridade deve ser normal ou higth.',
         ];
     }
 }
