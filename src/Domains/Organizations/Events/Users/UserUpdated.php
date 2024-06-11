@@ -2,9 +2,9 @@
 
 namespace Domains\Organizations\Events\Users;
 
-use App\Domains\Organizations\Data\Enums\PermissionsEnum;
 use Domains\Organizations\Models\User;
 use Domains\Shared\Actions\Events\DispatchEventsByPermission;
+use Domains\Shared\Enums\PermissionsEnum;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;

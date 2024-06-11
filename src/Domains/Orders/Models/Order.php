@@ -2,7 +2,8 @@
 
 namespace Domains\Orders\Models;
 
-use Domains\Shared\Models\Address;
+use Domains\Organizations\Models\Organization;
+use Domains\Organizations\Models\User;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,32 +25,49 @@ class Order extends Model
 
     protected $fillable = [
         'number',
-        'items',
-        'orderHistory',
-        'clientId',
-        'organizationId',
-    ];
-
-    protected $casts = [
-        'phones' => 'array',
+        'internal_notes',
+        'problem_description',
+        'budget_description',
+        'order_history',
+        'created_at',
+        'closed_at',
+        'estimated_date',
+        'end_of_warranty_date',
+        'is_reentry',
+        'priority',
+        'status',
+        'attachments',
+        'client_id',
+        'user_id',
+        'organization_id',
     ];
 
     public function toSearchableArray()
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'document' => $this->document,
+            'problem_description' => $this->problem_description,
+            'budget_description' => $this->budget_description,
+            'internal_notes' => $this->internal_notes,
         ];
     }
 
-    public function users()
+    public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function address()
+    public function organization()
     {
-        return $this->hasOne(Address::class);
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
     }
 }

@@ -1,9 +1,8 @@
 <?php
 
-namespace Domains\Organizations\Models;
+namespace Domains\Orders\Models;
 
-use Domains\Orders\Models\Order;
-use Domains\Shared\Models\Address;
+use Domains\Organizations\Models\Organization;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
-class Organization extends Model
+class Item extends Model
 {
     use FiltersNullValues,
         HasFactory,
@@ -25,37 +24,32 @@ class Organization extends Model
 
     protected $fillable = [
         'name',
-        'email',
-        'phones',
-        'document',
-        'status',
-    ];
-
-    protected $casts = [
-        'phones' => 'array',
+        'type',
+        'model',
+        'serial',
+        'brand',
+        'client_id',
+        'organization_id',
     ];
 
     public function toSearchableArray()
     {
         return [
-            'id' => $this->id,
             'name' => $this->name,
-            'document' => $this->document,
+            'type' => $this->type,
+            'model' => $this->model,
+            'serial' => $this->serial,
+            'brand' => $this->brand,
         ];
     }
 
-    public function users()
+    public function organization()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(Organization::class);
     }
 
-    public function orders()
+    public function client()
     {
-        return $this->hasMany(Order::class);
-    }
-
-    public function address()
-    {
-        return $this->hasOne(Address::class);
+        return $this->belongsTo(Client::class);
     }
 }

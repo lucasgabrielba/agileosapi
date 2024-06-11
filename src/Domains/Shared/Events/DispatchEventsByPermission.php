@@ -2,8 +2,8 @@
 
 namespace Domains\Shared\Actions\Events;
 
-use App\Domains\Organizations\Data\Enums\PermissionsEnum;
 use Domains\Organizations\Models\Organization;
+use Domains\Shared\Enums\PermissionsEnum;
 use Illuminate\Broadcasting\PrivateChannel;
 
 class DispatchEventsByPermission

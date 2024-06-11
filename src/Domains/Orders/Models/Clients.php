@@ -1,9 +1,8 @@
 <?php
 
-namespace Domains\Organizations\Models;
+namespace Domains\Orders\Models;
 
-use Domains\Orders\Models\Order;
-use Domains\Shared\Models\Address;
+use Domains\Organizations\Models\Organization;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
-class Organization extends Model
+class Client extends Model
 {
     use FiltersNullValues,
         HasFactory,
@@ -28,34 +27,25 @@ class Organization extends Model
         'email',
         'phones',
         'document',
-        'status',
-    ];
-
-    protected $casts = [
-        'phones' => 'array',
+        'organization_id',
     ];
 
     public function toSearchableArray()
     {
         return [
-            'id' => $this->id,
             'name' => $this->name,
+            'phones' => $this->phones,
             'document' => $this->document,
         ];
     }
 
-    public function users()
+    public function organization()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(Organization::class);
     }
 
-    public function orders()
+    public function items()
     {
-        return $this->hasMany(Order::class);
-    }
-
-    public function address()
-    {
-        return $this->hasOne(Address::class);
+        return $this->hasMany(Item::class);
     }
 }

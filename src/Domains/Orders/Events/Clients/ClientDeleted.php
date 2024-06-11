@@ -1,8 +1,7 @@
 <?php
 
-namespace Domains\Organizations\Events\Organizations;
+namespace Domains\Orders\Events\Clients;
 
-use Domains\Organizations\Models\Organization;
 use Domains\Shared\Actions\Events\DispatchEventsByPermission;
 use Domains\Shared\Enums\PermissionsEnum;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -10,22 +9,25 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class OrganizationUpdated implements ShouldBroadcast
+class ClientDeleted implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $organization;
+    public $client;
 
-    public function __construct(Organization $organization)
+    public $organizationId;
+
+    public function __construct(string $organizationId, string $clientId)
     {
-        $this->organization = $organization;
+        $this->organizationId = $organizationId;
+        $this->clientId = $clientId;
     }
 
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(
-            $this->organization->id,
-            PermissionsEnum::EDIT_ORGANIZATIONS
+            $this->organizationId,
+            PermissionsEnum::DELETE_CLIENTS
         );
     }
 }
