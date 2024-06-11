@@ -28,11 +28,22 @@ class RolesAndPermissionsSeeder extends Seeder
             'create:users',
             'edit:users',
             'delete:users',
+
+            'view:clients',
+            'create:clients',
+            'edit:clients',
+            'delete:clients',
+
+            'view:items',
+            'create:items',
+            'edit:items',
+            'delete:items',
         ];
 
         $roles = [
+            'client_manager' => ['view:clients', 'edit:clients', 'create:clients', 'view:items', 'create:items', 'edit:items'],
             'user_manager' => ['view:users', 'edit:users', 'create:users'],
-            'orders_manager' => ['view:orders', 'edit:orders', 'create:orders'],
+            'orders_manager' => ['view:orders', 'edit:orders', 'create:orders', 'view:items', 'create:items', 'edit:items'],
             'organization_manager' => ['view:organizations', 'edit:organizations', 'create:organizations'],
 
             'admin' => $permissions,
