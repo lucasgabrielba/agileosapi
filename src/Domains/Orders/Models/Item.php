@@ -23,7 +23,6 @@ class Item extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'name',
         'type',
         'model',
         'serial',

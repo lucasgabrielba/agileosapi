@@ -14,6 +14,10 @@ class CreateClient
 
         $client = $organization->clients->last();
 
+        if (isset($data['address'])) {
+            $client->address()->create($data['address'])->save();
+        }
+
         event(new ClientCreated($organization->id, $client));
 
         return $client;

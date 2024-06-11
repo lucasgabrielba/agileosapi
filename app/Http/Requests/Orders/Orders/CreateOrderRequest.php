@@ -37,6 +37,7 @@ class CreateOrderRequest extends FormRequest
             'client.address.reference' => 'nullable|string',
 
             'items' => 'nullable|array',
+            'items.*.type' => 'required|string',
             'items.*.model' => 'required|string',
             'items.*.brand' => 'required|string',
             'items.*.serial' => 'required|string',

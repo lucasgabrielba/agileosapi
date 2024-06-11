@@ -11,7 +11,6 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('name');
             $table->string('type');
             $table->string('model');
             $table->string('serial');
