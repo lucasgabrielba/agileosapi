@@ -11,8 +11,9 @@ Route::middleware('auth:sanctum')
         require base_path('routes/Organizations/organizations.php');
         require base_path('routes/Organizations/users.php');
 
-        // require base_path('routes/Shared/roles.php');
-        // require base_path('routes/Shared/permissions.php');
+        //Orders Domain
+        require base_path('routes/Services/orders.php');
+
         // require base_path('routes/Shared/uploads.php');
 
         // Route::prefix('admin')
