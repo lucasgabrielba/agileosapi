@@ -11,7 +11,7 @@ class UpdateItem
     {
         $item->update($data);
 
-        $organizationId = $item->organizationId;
+        $organizationId = $item->client()->organization()->id;
 
         event(new ItemUpdated($organizationId, $item));
 

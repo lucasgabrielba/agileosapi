@@ -8,24 +8,24 @@ use Domains\Orders\Actions\Items\GetItem;
 use Domains\Orders\Actions\Items\ListItems;
 use Domains\Orders\Actions\Items\UpdateItem;
 use Domains\Orders\Contracts\ItemsServiceInterface;
+use Domains\Orders\Models\Client;
 use Domains\Orders\Models\Item;
-use Domains\Organizations\Models\Organization;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ItemsService implements ItemsServiceInterface
 {
-    public function list(string $organizationId, array $filters): LengthAwarePaginator
+    public function list(string $clientId, array $filters): LengthAwarePaginator
     {
-        $organization = Organization::findOrFail($organizationId);
+        $client = Client::findOrFail($clientId);
 
-        return ListItems::execute($organization, $filters);
+        return ListItems::execute($client, $filters);
     }
 
-    public function create(string $organizationId, array $data): Item
+    public function create(string $clientId, array $data): Item
     {
-        $organization = Organization::findOrFail($organizationId);
+        $client = Client::findOrFail($clientId);
 
-        return CreateItem::execute($data, $organization);
+        return CreateItem::execute($data, $client);
     }
 
     public function get(string $itemId): Item

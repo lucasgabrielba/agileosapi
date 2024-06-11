@@ -2,4 +2,4 @@
 
 use App\Http\Controllers\Orders\ItemsController;
 
-Route::apiResource('organizations.items', ItemsController::class);
+Route::apiResource('clients.items', ItemsController::class);

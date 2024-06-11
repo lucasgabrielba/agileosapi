@@ -12,9 +12,9 @@ Route::middleware('auth:sanctum')
         require base_path('routes/Organizations/users.php');
 
         //Orders Domain
-        require base_path('routes/Services/orders.php');
-        require base_path('routes/Services/clients.php');
-        require base_path('routes/Services/items.php');
+        require base_path('routes/Orders/orders.php');
+        require base_path('routes/Orders/clients.php');
+        require base_path('routes/Orders/items.php');
 
         // require base_path('routes/Shared/uploads.php');
 
