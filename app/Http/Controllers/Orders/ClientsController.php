@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Orders;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Organizations\Clients\CreateClientRequest;
-use App\Http\Requests\Organizations\Clients\UpdateClientRequest;
-use Domains\Organizations\Contracts\ClientsServiceInterface;
-use Domains\Organizations\Services\ClientsService;
+use App\Http\Requests\Orders\Clients\CreateClientRequest;
+use App\Http\Requests\Orders\Clients\UpdateClientRequest;
+use Domains\Orders\Contracts\ClientsServiceInterface;
+use Domains\Orders\Services\ClientsService;
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller

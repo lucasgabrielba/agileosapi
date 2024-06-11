@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Orders;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Organizations\Orders\CreateOrderRequest;
-use App\Http\Requests\Organizations\Orders\UpdateOrderRequest;
-use Domains\Organizations\Contracts\OrdersServiceInterface;
-use Domains\Organizations\Services\OrdersService;
+use App\Http\Requests\Orders\Orders\CreateOrderRequest;
+use App\Http\Requests\Orders\Orders\UpdateOrderRequest;
+use Domains\Orders\Contracts\OrdersServiceInterface;
+use Domains\Orders\Services\OrdersService;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
