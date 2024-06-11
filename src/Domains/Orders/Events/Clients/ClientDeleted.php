@@ -23,6 +23,11 @@ class ClientDeleted implements ShouldBroadcast
         $this->clientId = $clientId;
     }
 
+    public function broadcastAs()
+    {
+        return 'client-deleted';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

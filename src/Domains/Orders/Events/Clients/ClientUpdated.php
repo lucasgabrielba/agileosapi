@@ -24,6 +24,11 @@ class ClientUpdated implements ShouldBroadcast
         $this->client = $client;
     }
 
+    public function broadcastAs()
+    {
+        return 'client-updated';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

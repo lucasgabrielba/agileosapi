@@ -24,6 +24,11 @@ class OrderCreated implements ShouldBroadcast
         $this->order = $order;
     }
 
+    public function broadcastAs()
+    {
+        return 'order-created';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

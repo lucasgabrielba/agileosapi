@@ -21,6 +21,11 @@ class OrganizationUpdated implements ShouldBroadcast
         $this->organization = $organization;
     }
 
+    public function broadcastAs()
+    {
+        return 'organization-updated';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

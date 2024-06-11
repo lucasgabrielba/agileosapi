@@ -24,6 +24,11 @@ class UserCreated implements ShouldBroadcast
         $this->user = $user;
     }
 
+    public function broadcastAs()
+    {
+        return 'user-created';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

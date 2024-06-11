@@ -24,6 +24,11 @@ class ItemUpdated implements ShouldBroadcast
         $this->item = $item;
     }
 
+    public function broadcastAs()
+    {
+        return 'item-updated';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

@@ -24,6 +24,11 @@ class OrderUpdated implements ShouldBroadcast
         $this->order = $order;
     }
 
+    public function broadcastAs()
+    {
+        return 'order-updated';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

@@ -23,6 +23,11 @@ class UserDeleted implements ShouldBroadcast
         $this->userId = $userId;
     }
 
+    public function broadcastAs()
+    {
+        return 'user-deleted';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

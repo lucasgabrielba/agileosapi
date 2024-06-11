@@ -23,6 +23,11 @@ class ItemDeleted implements ShouldBroadcast
         $this->itemId = $itemId;
     }
 
+    public function broadcastAs()
+    {
+        return 'item-deleted';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

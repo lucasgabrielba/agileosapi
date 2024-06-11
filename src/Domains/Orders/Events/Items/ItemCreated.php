@@ -24,6 +24,11 @@ class ItemCreated implements ShouldBroadcast
         $this->item = $item;
     }
 
+    public function broadcastAs()
+    {
+        return 'item-created';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

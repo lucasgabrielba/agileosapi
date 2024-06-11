@@ -23,6 +23,11 @@ class OrderDeleted implements ShouldBroadcast
         $this->orderId = $orderId;
     }
 
+    public function broadcastAs()
+    {
+        return 'order-deleted';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

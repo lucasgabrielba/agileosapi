@@ -21,6 +21,11 @@ class OrganizationCreated implements ShouldBroadcast
         $this->organization = $organization;
     }
 
+    public function broadcastAs()
+    {
+        return 'organization-created';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

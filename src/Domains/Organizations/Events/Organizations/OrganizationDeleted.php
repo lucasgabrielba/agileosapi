@@ -22,6 +22,11 @@ class OrganizationDeleted implements ShouldBroadcast
         $this->organizationId = $organizationId;
     }
 
+    public function broadcastAs()
+    {
+        return 'organization-deleted';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(

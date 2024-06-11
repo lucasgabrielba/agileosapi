@@ -24,6 +24,11 @@ class UserUpdated implements ShouldBroadcast
         $this->user = $user;
     }
 
+    public function broadcastAs()
+    {
+        return 'user-updated';
+    }
+
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(
