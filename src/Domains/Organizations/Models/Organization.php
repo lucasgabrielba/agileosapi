@@ -2,6 +2,7 @@
 
 namespace Domains\Organizations\Models;
 
+use Domains\Orders\Models\Client;
 use Domains\Orders\Models\Order;
 use Domains\Shared\Models\Address;
 use Domains\Shared\Traits\FiltersNullValues;
@@ -34,6 +35,7 @@ class Organization extends Model
 
     protected $casts = [
         'phones' => 'array',
+        'preferences' => 'array',
     ];
 
     public function toSearchableArray()
@@ -45,9 +47,15 @@ class Organization extends Model
         ];
     }
 
+    // Relationships
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
     }
 
     public function orders()

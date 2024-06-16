@@ -32,6 +32,7 @@ class Address extends Model
         'postal_code',
         'reference',
         'organization_id',
+        'client_id',
     ];
 
     public function organization()

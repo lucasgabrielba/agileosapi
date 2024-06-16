@@ -11,10 +11,10 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->string('type');
-            $table->string('model');
-            $table->string('serial');
-            $table->string('brand');
+            $table->string('type')->nullable();
+            $table->string('model')->nullable();
+            $table->string('serial')->nullable();
+            $table->string('brand')->nullable();
 
             $table->uuid('client_id');
             $table->uuid('organization_id');

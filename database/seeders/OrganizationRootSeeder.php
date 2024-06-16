@@ -33,6 +33,10 @@ class OrganizationRootSeeder extends Seeder
             'phones' => ['(11)99999-9999'],
             'status' => OrganizationStatus::ACTIVE->value,
             'address_id' => $address->id,
+
+            'preferences' => [
+                'multiple_items_per_order' => false,
+            ],
         ]);
 
         $user = UserFactory::new()->create([

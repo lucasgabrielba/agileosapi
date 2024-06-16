@@ -25,6 +25,9 @@ class CreateAddressesTable extends Migration
             $table->string('country');
             $table->string('postal_code');
             $table->string('reference')->nullable();
+
+            $table->foreignUuid('client_id')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

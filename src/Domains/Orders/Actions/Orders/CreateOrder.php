@@ -22,7 +22,7 @@ class CreateOrder
             $items = collect(CreateItems::execute($data['items'], $client));
 
             $orders = [];
-            if (! $organization->preferences->multiple_items_per_order) {
+            if (! $organization->preferences['multiple_items_per_order']) {
                 foreach ($items as $item) {
                     $orders[] = $organization->orders()->create([
                         ...$data,

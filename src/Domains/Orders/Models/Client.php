@@ -32,6 +32,10 @@ class Client extends Model
         'address_id',
     ];
 
+    protected $casts = [
+        'phones' => 'array',
+    ];
+
     public function toSearchableArray()
     {
         return [
@@ -48,7 +52,7 @@ class Client extends Model
 
     public function address()
     {
-        return $this->hasOne(Address::class);
+        return $this->hasMany(Address::class);
     }
 
     public function items()

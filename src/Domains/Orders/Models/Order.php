@@ -2,6 +2,7 @@
 
 namespace Domains\Orders\Models;
 
+use Domains\Orders\Data\Enums\OrderStatus;
 use Domains\Organizations\Models\Organization;
 use Domains\Organizations\Models\User;
 use Domains\Shared\Traits\FiltersNullValues;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 
 class Order extends Model
@@ -41,6 +43,24 @@ class Order extends Model
         'user_id',
         'organization_id',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($order) {
+            $user = Auth::user();
+            $organization = $user->organization;
+
+            $lastOrder = $organization->orders()->orderBy('number', 'desc')->first();
+            $nextNumber = $lastOrder ? $lastOrder->number + 1 : 1;
+
+            $order->number = $nextNumber;
+            $order->status = OrderStatus::OPEN->value;
+            $order->user_id = $user->id;
+            $order->organization_id = $organization->id;
+        });
+    }
 
     public function toSearchableArray()
     {
