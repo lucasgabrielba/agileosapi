@@ -19,7 +19,7 @@ class CreateOrder
         try {
 
             $client = CreateClient::execute($data['client'], $organization);
-            $items = collect(CreateItems::execute($data['items'], $client->id));
+            $items = collect(CreateItems::execute($data['items'], $client));
 
             $orders = [];
             if (! $organization->preferences->multiple_items_per_order) {

@@ -8,7 +8,6 @@ use Database\Factories\UserFactory;
 use Domains\Organizations\Data\Enums\OrganizationStatus;
 use Domains\Organizations\Data\Enums\UserStatus;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class OrganizationRootSeeder extends Seeder
 {
@@ -40,7 +39,7 @@ class OrganizationRootSeeder extends Seeder
             'id' => '9c41ab6a-7ee2-4642-9069-542e08ddea3f',
             'name' => 'Root User',
             'email' => 'root@root.com',
-            'password' => Hash::make('root'),
+            'password' => bcrypt('root'),
             'status' => UserStatus::ACTIVE->value,
             'organization_id' => $organization->id,
         ]);

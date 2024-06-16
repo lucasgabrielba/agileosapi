@@ -1,5 +1,6 @@
 <?php
 
+use Laravel\Telescope\Watchers\LogWatcher;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -54,15 +55,20 @@ return [
 
         'stack' => [
             'driver' => 'stack',
-            'channels' => explode(',', env('LOG_STACK', 'single')),
+            'channels' => ['single', 'telescope'],
             'ignore_exceptions' => false,
         ],
 
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
-            'replace_placeholders' => true,
+            'level' => 'debug',
+        ],
+
+        'telescope' => [
+            'driver' => 'custom',
+            'via' => LogWatcher::class,
+            'level' => 'debug',
         ],
 
         'daily' => [

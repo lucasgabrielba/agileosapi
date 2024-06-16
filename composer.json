@@ -15,7 +15,7 @@
         "laravel/reverb": "^1.0@beta",
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.9",
-        "laravel/telescope": "*",
+        "laravel/telescope": "^5.0",
         "laravel/tinker": "^2.9",
         "meilisearch/meilisearch-php": "^1.8",
         "spatie/laravel-permission": "^6.7"
@@ -60,7 +60,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": "laravel/telescope"
         }
     },
     "config": {

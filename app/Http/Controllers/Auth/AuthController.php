@@ -7,6 +7,7 @@ use Domains\Organizations\Data\Enums\UserStatus;
 use Domains\Organizations\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
@@ -32,6 +33,8 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        info('User logged in', ['email' => 'email']);
+        Log::info('User logged in', ['email' => 'email']);
         $data = $request->validate([
             'email' => 'required|string|email',
             'password' => 'required|string',
