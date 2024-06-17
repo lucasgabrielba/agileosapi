@@ -8,6 +8,7 @@ use Domains\Orders\Actions\Items\GetItem;
 use Domains\Orders\Actions\Items\ListItems;
 use Domains\Orders\Actions\Items\UpdateItem;
 use Domains\Orders\Contracts\ItemsServiceInterface;
+use Domains\Orders\Models\Client;
 use Domains\Orders\Models\Item;
 use Domains\Organizations\Models\Organization;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -24,8 +25,9 @@ class ItemsService implements ItemsServiceInterface
     public function create(string $organizationId, array $data): Item
     {
         $organization = Organization::findOrFail($organizationId);
+        $client = $data['client_id'] ? Client::findOrFail($data['client_id']) : null;
 
-        return CreateItem::execute($data, $organization);
+        return CreateItem::execute($data, $organization, $client);
     }
 
     public function get(string $itemId): Item
