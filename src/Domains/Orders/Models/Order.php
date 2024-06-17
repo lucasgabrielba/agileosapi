@@ -107,6 +107,14 @@ class Order extends Model
 
     public function getItemsAttribute($value)
     {
-        return Item::whereIn('id', $this->attributes['items'])->get();
+        $itemIds = json_decode($this->attributes['items'], true);
+
+        if (is_array($itemIds)) {
+            return Item::whereIn('id', $itemIds)
+                ->select('id', 'brand', 'model', 'serial')
+                ->get();
+        }
+
+        return collect();
     }
 }

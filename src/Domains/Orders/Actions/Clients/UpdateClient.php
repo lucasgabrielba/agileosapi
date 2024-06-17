@@ -11,7 +11,7 @@ class UpdateClient
     {
         $client->update($data);
 
-        $organizationId = $client->organizationId;
+        $organizationId = $client->organization_id;
 
         event(new ClientUpdated($organizationId, $client));
 

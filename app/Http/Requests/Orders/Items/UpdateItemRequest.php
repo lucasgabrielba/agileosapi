@@ -20,13 +20,10 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|required|string|max:255',
             'type' => 'sometimes|required|string|max:255',
             'model' => 'sometimes|required|string|max:255',
             'serial' => 'sometimes|required|string|max:255',
             'brand' => 'sometimes|required|string|max:255',
-            'client_id' => 'sometimes|required|exists:clients,id',
-            'organization_id' => 'sometimes|required|exists:organizations,id',
         ];
     }
 
@@ -41,10 +38,6 @@ class UpdateItemRequest extends FormRequest
             'model.required' => 'O modelo é obrigatório.',
             'serial.required' => 'O número de série é obrigatório.',
             'brand.required' => 'A marca é obrigatória.',
-            'client_id.required' => 'O cliente é obrigatório.',
-            'client_id.exists' => 'O cliente selecionado não existe.',
-            'organization_id.required' => 'A organização é obrigatória.',
-            'organization_id.exists' => 'A organização selecionada não existe.',
         ];
     }
 }

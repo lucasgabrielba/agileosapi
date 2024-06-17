@@ -18,31 +18,31 @@ class ItemsController extends Controller
         $this->itemsService = $itemsService;
     }
 
-    public function index(Request $request, string $clientId)
+    public function index(Request $request, string $organizationId)
     {
         $filters = $request->all();
 
-        $items = $this->itemsService->list($clientId, $filters);
+        $items = $this->itemsService->list($organizationId, $filters);
 
         return response()->json($items);
     }
 
-    public function store(CreateItemRequest $request, string $clientId)
+    public function store(CreateItemRequest $request, string $organizationId)
     {
         $data = $request->validated();
-        $item = $this->itemsService->create($clientId, $data);
+        $item = $this->itemsService->create($organizationId, $data);
 
         return response()->json($item, 201);
     }
 
-    public function show(string $clientId, string $itemId)
+    public function show(string $organizationId, string $itemId)
     {
         $item = $this->itemsService->get($itemId);
 
         return response()->json($item);
     }
 
-    public function update(UpdateItemRequest $request, string $clientId, string $itemId)
+    public function update(UpdateItemRequest $request, string $organizationId, string $itemId)
     {
         $data = $request->validated();
         $item = $this->itemsService->update($itemId, $data);
@@ -50,8 +50,9 @@ class ItemsController extends Controller
         return response()->json($item);
     }
 
-    public function destroy(string $clientId, string $itemId)
+    public function destroy(string $organizationId, string $itemId)
     {
+
         $this->itemsService->destroy($itemId);
 
         return response()->json(null, 204);

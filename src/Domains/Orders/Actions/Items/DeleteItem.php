@@ -10,7 +10,7 @@ class DeleteItem
     public static function execute(Item $item): void
     {
         $itemId = $item->id;
-        $organizationId = $item->client()->organization()->id;
+        $organizationId = $item->organization_id;
 
         $item->delete();
 

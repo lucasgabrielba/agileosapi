@@ -22,7 +22,7 @@ class CreateClientRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:clients,email',
-            'phones' => 'required|json',
+            'phones' => ['required', 'array', new UniquePhone],
             'document' => 'required|string|max:20|unique:clients,document',
         ];
     }
@@ -38,7 +38,7 @@ class CreateClientRequest extends FormRequest
             'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
             'email.unique' => 'Este e-mail já está sendo usado.',
             'phones.required' => 'O telefone é obrigatório.',
-            'phones.json' => 'O telefone deve ser um JSON válido.',
+            'phones.array' => 'O telefone deve ser um array válido.',
             'document.required' => 'O documento é obrigatório.',
             'document.max' => 'O documento não pode exceder 20 caracteres.',
             'document.unique' => 'Este documento já está sendo usado.',

@@ -3,6 +3,7 @@
 namespace Domains\Organizations\Models;
 
 use Domains\Orders\Models\Client;
+use Domains\Orders\Models\Item;
 use Domains\Orders\Models\Order;
 use Domains\Shared\Models\Address;
 use Domains\Shared\Traits\FiltersNullValues;
@@ -66,5 +67,10 @@ class Organization extends Model
     public function address()
     {
         return $this->hasOne(Address::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
     }
 }
