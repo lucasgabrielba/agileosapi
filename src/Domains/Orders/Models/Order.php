@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 
 class Order extends Model
@@ -56,8 +55,8 @@ class Order extends Model
         parent::boot();
 
         static::creating(function ($order) {
-            $user = Auth::user();
-            $organization = $user->organization;
+            $organization = Organization::find($order->organization_id);
+            $user = User::find($order->user_id);
 
             $lastOrder = $organization->orders()->orderBy('number', 'desc')->first();
             $nextNumber = $lastOrder ? $lastOrder->number + 1 : 1;

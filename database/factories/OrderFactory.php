@@ -15,21 +15,27 @@ class OrderFactory extends Factory
     {
         return [
             'id' => (string) Str::uuid(),
-            'name' => fake()->company(),
-            'email' => fake()->companyEmail(),
-            'phones' => [fake()->phoneNumber()],
-            'document' => fake()->ein(),
-            'status' => OrderStatus::ACTIVE->value,
+            'number' => $this->faker->unique()->numberBetween(1, 1000),
+            'status' => OrderStatus::OPEN,
+            'items' => ItemFactory::new()->count($this->faker->numberBetween(1, 5))->create()->pluck('id')->toArray(),
+            'problem_description' => $this->faker->sentence,
+            'budget_description' => $this->faker->sentence,
+            'internal_notes' => $this->faker->paragraph,
+            'order_history' => json_encode([
+                [
+                    'message' => 'Ordem de Serviço criada',
+                    'author' => $this->faker->name,
+                    'date' => now()->toDateTimeString(),
+                ],
+            ]),
+            'closed_at' => null,
+            'estimated_date' => $this->faker->dateTimeBetween('now', '+1 month'),
+            'end_of_warranty_date' => $this->faker->dateTimeBetween('now', '+3 month'),
+            'is_reentry' => false,
+            'priority' => $this->faker->randomElement(['normal', 'high']),
+            'client_id' => ClientFactory::new()->create()->id,
+            'organization_id' => OrganizationFactory::new()->create()->id,
+            'user_id' => UserFactory::new()->create()->id,
         ];
-    }
-
-    public function active(): static
-    {
-        return $this->state(fn () => ['status' => OrderStatus::ACTIVE->value]);
-    }
-
-    public function inactive(): static
-    {
-        return $this->state(fn () => ['status' => OrderStatus::INACTIVE->value]);
     }
 }

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 
 class Item extends Model
@@ -31,15 +30,6 @@ class Item extends Model
         'client_id',
         'organization_id',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($item) {
-            $item->organization_id = Auth::user()->organization->id;
-        });
-    }
 
     public function toSearchableArray()
     {

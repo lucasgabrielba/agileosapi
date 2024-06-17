@@ -66,12 +66,14 @@ class CreateOrder
 
     private static function createOrders(array $data, Organization $organization, Client $client, array $itemsAndProblems): array
     {
+        $user = auth()->user();
         $orders = [];
 
         if ($organization->preferences['multiple_items_per_order']) {
             $orders[] = $organization->orders()->create([
                 ...$data,
                 'client_id' => $client->id,
+                'user_id' => $user->id,
                 'items' => collect($itemsAndProblems)->pluck('item_id')->toArray(),
             ]);
         } else {
@@ -79,6 +81,7 @@ class CreateOrder
                 $orders[] = $organization->orders()->create([
                     ...$data,
                     'client_id' => $client->id,
+                    'user_id' => $user->id,
                     'items' => [$item['item_id']],
                     'problem_description' => $item['problem_description'],
                 ]);
