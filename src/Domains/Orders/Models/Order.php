@@ -104,4 +104,9 @@ class Order extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function getItemsAttribute($value)
+    {
+        return Item::whereIn('id', $this->attributes['items'])->get();
+    }
 }

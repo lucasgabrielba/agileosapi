@@ -44,7 +44,6 @@ class Item extends Model
     public function toSearchableArray()
     {
         return [
-            'name' => $this->name,
             'type' => $this->type,
             'model' => $this->model,
             'serial' => $this->serial,
