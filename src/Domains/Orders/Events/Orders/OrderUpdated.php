@@ -1,10 +1,10 @@
 <?php
 
-namespace Domains\Organizations\Events\Orders;
+namespace Domains\Orders\Events\Orders;
 
 use Domains\Orders\Models\Order;
-use Domains\Shared\Actions\Events\DispatchEventsByPermission;
 use Domains\Shared\Enums\PermissionsEnum;
+use Domains\Shared\Events\DispatchEventsByPermission;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;

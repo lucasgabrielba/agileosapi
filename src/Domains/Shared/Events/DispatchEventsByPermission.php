@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\Shared\Actions\Events;
+namespace Domains\Shared\Events;
 
 use Domains\Organizations\Models\Organization;
 use Domains\Shared\Enums\PermissionsEnum;
@@ -16,7 +16,7 @@ class DispatchEventsByPermission
 
         $channels = [];
         foreach ($allowedUsers as $user) {
-            $channels[] = new PrivateChannel('organizations.'.$organization->id.'.users.'.$user->id);
+            $channels[] = new PrivateChannel('organizations.' . $organization->id . '.users.' . $user->id);
         }
 
         return $channels;
