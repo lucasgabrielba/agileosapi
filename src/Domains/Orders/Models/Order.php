@@ -27,21 +27,28 @@ class Order extends Model
 
     protected $fillable = [
         'number',
-        'internal_notes',
+        'status',
+        'items',
         'problem_description',
         'budget_description',
+        'internal_notes',
         'order_history',
-        'created_at',
         'closed_at',
         'estimated_date',
         'end_of_warranty_date',
         'is_reentry',
         'priority',
-        'status',
         'attachments',
         'client_id',
         'user_id',
         'organization_id',
+    ];
+
+    protected $casts = [
+        'items' => 'array',
+        'order_history' => 'array',
+        'attachments' => 'array',
+        'status' => OrderStatus::class,
     ];
 
     protected static function boot()
@@ -55,10 +62,22 @@ class Order extends Model
             $lastOrder = $organization->orders()->orderBy('number', 'desc')->first();
             $nextNumber = $lastOrder ? $lastOrder->number + 1 : 1;
 
-            $order->number = $nextNumber;
-            $order->status = OrderStatus::OPEN->value;
-            $order->user_id = $user->id;
             $order->organization_id = $organization->id;
+            $order->user_id = $user->id;
+
+            $order->number = $nextNumber;
+            $order->status = OrderStatus::OPEN;
+            $order->order_history = [
+                [
+                    'message' => 'Ordem de Serviço aberta',
+                    'author' => $user->name,
+                    'date' => now()->toDateTimeString(),
+                ],
+            ];
+
+            if ($order->is_reentry) {
+                $order->status = OrderStatus::REENTRY;
+            }
         });
     }
 
@@ -84,10 +103,5 @@ class Order extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
-    }
-
-    public function items()
-    {
-        return $this->hasMany(Item::class);
     }
 }

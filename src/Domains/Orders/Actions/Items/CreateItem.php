@@ -10,11 +10,14 @@ class CreateItem
 {
     public static function execute(array $data, Client $client): Item
     {
-        $client->items()->create($data)->save();
+        $item = Item::create([
+            'client_id' => $client->id,
+            'organization_id' => $client->organization_id,
 
-        $item = $client->items->last();
+            ...$data,
+        ]);
 
-        event(new ItemCreated($client->id, $item));
+        event(new ItemCreated($client->organization_id, $item));
 
         return $item;
     }

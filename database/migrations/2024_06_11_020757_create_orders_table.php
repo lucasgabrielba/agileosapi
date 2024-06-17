@@ -13,6 +13,8 @@ class CreateOrdersTable extends Migration
             $table->string('number');
             $table->string('status');
 
+            $table->json('items');
+
             $table->text('problem_description')->nullable();
             $table->text('budget_description')->nullable();
             $table->text('internal_notes')->nullable();

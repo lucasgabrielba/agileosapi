@@ -14,7 +14,7 @@ class CreateClientsTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->json('phones')->nullable();
-            $table->string('document')->unique();
+            $table->string('document')->unique()->nullable();
 
             $table->uuid('organization_id');
             $table->uuid('address_id')->nullable();

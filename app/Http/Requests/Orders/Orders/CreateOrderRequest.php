@@ -20,9 +20,11 @@ class CreateOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client.name' => 'required|string|max:255',
+            'client_id' => 'sometimes|exists:clients,id',
+
+            'client.name' => 'required_without:client_id|string|max:255',
             'client.email' => 'nullable|email',
-            'client.phones' => 'required|array',
+            'client.phones' => 'required_without:client_id|array',
             'client.document' => 'nullable|string|max:255',
 
             'client.address' => 'nullable|array',
@@ -37,12 +39,15 @@ class CreateOrderRequest extends FormRequest
             'client.address.reference' => 'nullable|string',
 
             'items' => 'nullable|array',
+            'items.*.id' => 'nullable|exists:items,id',
             'items.*.type' => 'nullable|string',
             'items.*.model' => 'nullable|string',
             'items.*.brand' => 'nullable|string',
             'items.*.serial' => 'nullable|string',
+            'items.*.problem_description' => 'nullable|string',
 
-            'problem_description' => 'required|string',
+            'problem_description' => 'sometimes|string',
+
             'priority' => 'nullable|in:normal,high',
             'attachments' => 'nullable|json',
         ];

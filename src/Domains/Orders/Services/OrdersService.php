@@ -21,7 +21,7 @@ class OrdersService implements OrdersServiceInterface
         return ListOrders::execute($organization, $filters);
     }
 
-    public function create(string $organizationId, array $data): Order
+    public function create(string $organizationId, array $data)
     {
         $organization = Organization::findOrFail($organizationId);
 

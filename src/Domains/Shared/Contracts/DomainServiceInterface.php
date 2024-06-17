@@ -11,7 +11,7 @@ interface DomainServiceInterface
 
     public function get(string $id): Model;
 
-    public function create(string $parent, array $data): Model;
+    public function create(string $parent, array $data);
 
     public function update(string $id, array $data): ?Model;
 

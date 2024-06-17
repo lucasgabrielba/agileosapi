@@ -30,9 +30,9 @@ class OrdersController extends Controller
     public function store(CreateOrderRequest $request, string $organizationId)
     {
         $data = $request->validated();
-        $order = $this->ordersService->create($organizationId, $data);
+        $orders = $this->ordersService->create($organizationId, $data);
 
-        return response()->json($order, 201);
+        return response()->json($orders, 201);
     }
 
     public function show(string $organizationId, string $orderId)
