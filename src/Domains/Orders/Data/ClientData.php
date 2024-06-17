@@ -18,7 +18,7 @@ class ClientData extends Data
         public array $phones,
         public string $document,
         public Lazy|array|Optional $organization,
-        public Lazy|array|Optional $address,
+        // public Lazy|array|Optional $address,
     ) {
     }
 
@@ -39,7 +39,7 @@ class ClientData extends Data
             phones: $model->phones,
             document: $model->document,
             organization: Lazy::create(fn () => OrganizationData::fromModel($model->organization)),
-            address: Lazy::create(fn () => AddressData::collection($model->address)),
+            //address: Lazy::create(fn () => AddressData::collection($model->address)),
         );
     }
 }

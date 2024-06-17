@@ -18,7 +18,7 @@ class CreateOrder
 
         try {
             $client = self::getClient($data, $organization);
-            $itemsAndProblems = self::getItemsIdsAndProblems($data, $client);
+            $itemsAndProblems = self::getItemsIdsAndProblems($data, $organization, $client);
             $orders = self::createOrders($data, $organization, $client, $itemsAndProblems);
 
             DB::commit();
@@ -41,7 +41,7 @@ class CreateOrder
         return $client;
     }
 
-    private static function getItemsIdsAndProblems(array $data, Client $client)
+    private static function getItemsIdsAndProblems(array $data, Organization $organization, Client $client)
     {
         $itemsAndProblems = [];
 
@@ -56,7 +56,7 @@ class CreateOrder
             }
 
             $itemsAndProblems[] = [
-                'item_id' => CreateItem::execute($item, $client)->id,
+                'item_id' => CreateItem::execute($item, $organization, $client)->id,
                 'problem_description' => $item['problem_description'] ?? null,
             ];
         }
