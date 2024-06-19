@@ -32,11 +32,13 @@ class Organization extends Model
         'document',
         'status',
         'preferences',
+        'brand',
     ];
 
     protected $casts = [
         'phones' => 'array',
         'preferences' => 'array',
+        'brand' => 'array',
     ];
 
     public function toSearchableArray()

@@ -23,7 +23,9 @@ class CreateOrganizationsTable extends Migration
             $table->json('phones');
             $table->string('document')->nullable();
             $table->json('preferences')->nullable();
-            $table->enum('status', ['active', 'inactive', 'pending']);
+            $table->json('brand')->nullable();
+            $table->enum('status', ['active', 'inactive', 'free_trial']);
+
             $table->softDeletes();
             $table->timestamps();
 
