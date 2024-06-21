@@ -39,9 +39,9 @@ class AuthController extends Controller
 
         $user = User::where('email', $data['email'])->first();
 
-        // if (! $user || ! Hash::check($data['password'], $user->password)) {
-        //     return response()->json(['error' => 'The provided credentials are incorrect.'], 401);
-        // }
+        if (! $user || ! Hash::check($data['password'], $user->password)) {
+            return response()->json(['error' => 'The provided credentials are incorrect.'], 401);
+        }
 
         $token = $user->createToken('login')->plainTextToken;
 
@@ -57,7 +57,7 @@ class AuthController extends Controller
 
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json($request->user()->load('organization'));
     }
 
     public function forgotPassword(Request $request)

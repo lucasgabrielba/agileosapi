@@ -39,6 +39,7 @@ class Organization extends Model
         'phones' => 'array',
         'preferences' => 'array',
         'brand' => 'array',
+        'abilities' => 'array',
     ];
 
     public function toSearchableArray()

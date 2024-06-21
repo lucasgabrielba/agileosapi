@@ -37,6 +37,15 @@ class OrganizationRootSeeder extends Seeder
             'preferences' => [
                 'multiple_items_per_order' => false,
             ],
+
+            'brand' => [
+                'logoUrl' => 'https://via.placeholder.com/150',
+                'bannerUrl' => 'https://via.placeholder.com/150',
+            ],
+
+            'abilities' => [
+                'Dashboard', 'Orders', 'Clients', 'Settings', 'Reports',
+            ],
         ]);
 
         $user = UserFactory::new()->create([
