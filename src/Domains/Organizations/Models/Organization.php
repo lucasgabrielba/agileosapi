@@ -5,6 +5,7 @@ namespace Domains\Organizations\Models;
 use Domains\Orders\Models\Client;
 use Domains\Orders\Models\Item;
 use Domains\Orders\Models\Order;
+use Domains\Organizations\Data\Enums\OrganizationStatus;
 use Domains\Shared\Models\Address;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -40,6 +41,7 @@ class Organization extends Model
         'preferences' => 'array',
         'brand' => 'array',
         'abilities' => 'array',
+        'status' => OrganizationStatus::class,
     ];
 
     public function toSearchableArray()

@@ -2,6 +2,7 @@
 
 namespace Domains\Organizations\Models;
 
+use Domains\Organizations\Data\Enums\UserStatus;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,6 +39,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $casts = [
+        'status' => UserStatus::class,
     ];
 
     public function organization()

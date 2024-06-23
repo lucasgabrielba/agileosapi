@@ -25,7 +25,7 @@ class CreateOrdersTable extends Migration
             $table->timestamp('end_of_warranty_date')->nullable();
 
             $table->boolean('is_reentry')->default(false);
-            $table->enum('priority', ['normal', 'high'])->nullable();
+            $table->string('priority')->nullable();
 
             $table->json('attachments')->nullable();
 
