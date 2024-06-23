@@ -3,22 +3,21 @@
 namespace Domains\Orders\Actions\Items;
 
 use Domains\Orders\Events\Items\ItemCreated;
-use Domains\Orders\Models\Client;
 use Domains\Orders\Models\Item;
 
 class CreateItems
 {
-    public static function execute(array $itemsData, Client $client): array
+    public static function execute(string $organizationId, string $clientId, array $itemsData): array
     {
         $items = [];
         foreach ($itemsData as $itemData) {
             $newItem = Item::create([
                 ...$itemData,
-                'client_id' => $client->id,
-                'organization_id' => $client->organization_id,
+                'client_id' => $clientId,
+                'organization_id' => $organizationId,
             ]);
 
-            event(new ItemCreated($client->id, $newItem));
+            event(new ItemCreated($organizationId, $newItem));
 
             $items[] = $newItem;
         }

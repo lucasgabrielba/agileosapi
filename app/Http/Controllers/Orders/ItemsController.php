@@ -27,10 +27,10 @@ class ItemsController extends Controller
         return response()->json($items);
     }
 
-    public function store(CreateItemRequest $request, string $organizationId)
+    public function store(CreateItemRequest $request, string $organizationId, $clientId)
     {
         $data = $request->validated();
-        $item = $this->itemsService->create($organizationId, $data);
+        $item = $this->itemsService->create($organizationId, $clientId, $data);
 
         return response()->json($item, 201);
     }
@@ -45,16 +45,19 @@ class ItemsController extends Controller
     public function update(UpdateItemRequest $request, string $organizationId, string $itemId)
     {
         $data = $request->validated();
-        $item = $this->itemsService->update($itemId, $data);
+        $this->itemsService->update($organizationId, $itemId, $data);
 
-        return response()->json($item);
+        return response()->json([
+            'message' => 'Item updated successfully',
+        ]);
     }
 
     public function destroy(string $organizationId, string $itemId)
     {
+        $this->itemsService->destroy($organizationId, $itemId);
 
-        $this->itemsService->destroy($itemId);
-
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'Item deleted successfully',
+        ], 204);
     }
 }

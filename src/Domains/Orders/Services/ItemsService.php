@@ -4,11 +4,9 @@ namespace Domains\Orders\Services;
 
 use Domains\Orders\Actions\Items\CreateItem;
 use Domains\Orders\Actions\Items\DeleteItem;
-use Domains\Orders\Actions\Items\GetItem;
 use Domains\Orders\Actions\Items\ListItems;
 use Domains\Orders\Actions\Items\UpdateItem;
 use Domains\Orders\Contracts\ItemsServiceInterface;
-use Domains\Orders\Models\Client;
 use Domains\Orders\Models\Item;
 use Domains\Organizations\Models\Organization;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -22,30 +20,23 @@ class ItemsService implements ItemsServiceInterface
         return ListItems::execute($organization, $filters);
     }
 
-    public function create(string $organizationId, array $data): Item
+    public function create(string $organizationId, string $clientId, array $data): Item
     {
-        $organization = Organization::findOrFail($organizationId);
-        $client = $data['client_id'] ? Client::findOrFail($data['client_id']) : null;
-
-        return CreateItem::execute($data, $organization, $client);
+        return CreateItem::execute($organizationId, $clientId, $data);
     }
 
     public function get(string $itemId): Item
     {
-        return GetItem::execute($itemId);
+        return Item::findOrFail($itemId);
     }
 
-    public function update(string $itemId, array $data): Item
+    public function update(string $organizationId, string $itemId, array $data): void
     {
-        $item = Item::findOrFail($itemId);
-
-        return UpdateItem::execute($item, $data);
+        UpdateItem::execute($organizationId, $itemId, $data);
     }
 
-    public function destroy(string $itemId): void
+    public function destroy(string $organizationId, string $itemId): void
     {
-        $item = Item::findOrFail($itemId);
-
-        DeleteItem::execute($item);
+        DeleteItem::execute($organizationId, $itemId);
     }
 }

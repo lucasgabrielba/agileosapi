@@ -2,7 +2,6 @@
 
 namespace Domains\Orders\Events\Items;
 
-use Domains\Orders\Models\Item;
 use Domains\Shared\Enums\PermissionsEnum;
 use Domains\Shared\Events\DispatchEventsByPermission;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -14,14 +13,14 @@ class ItemUpdated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $item;
+    public $itemId;
 
     public $organizationId;
 
-    public function __construct(string $organizationId, Item $item)
+    public function __construct(string $organizationId, string $itemId)
     {
         $this->organizationId = $organizationId;
-        $this->item = $item;
+        $this->itemId = $itemId;
     }
 
     public function broadcastAs()
