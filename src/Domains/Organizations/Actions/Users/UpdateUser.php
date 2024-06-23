@@ -4,17 +4,21 @@ namespace Domains\Organizations\Actions\Users;
 
 use Domains\Organizations\Events\Users\UserUpdated;
 use Domains\Organizations\Models\User;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdateUser
 {
-    public static function execute(User $user, array $data): User
+    public static function execute(string $organizationId, string $userId, array $data): void
     {
-        $user->update($data);
+        try {
+            User::where('id', $userId)->update($data);
 
-        $organizationId = $user->organizationId;
-
-        event(new UserUpdated($organizationId, $user));
-
-        return $user;
+            event(new UserUpdated($organizationId, $userId));
+        } catch (ModelNotFoundException $e) {
+            throw new Exception('User not found');
+        } catch (Exception $e) {
+            throw new Exception('An error occurred during the update: '.$e->getMessage());
+        }
     }
 }

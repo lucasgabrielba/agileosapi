@@ -4,7 +4,6 @@ namespace Domains\Organizations\Services;
 
 use Domains\Organizations\Actions\Users\CreateUser;
 use Domains\Organizations\Actions\Users\DeleteUser;
-use Domains\Organizations\Actions\Users\GetUser;
 use Domains\Organizations\Actions\Users\ListUsers;
 use Domains\Organizations\Actions\Users\UpdateUser;
 use Domains\Organizations\Contracts\UsersServiceInterface;
@@ -30,20 +29,16 @@ class UsersService implements UsersServiceInterface
 
     public function get(string $userId): User
     {
-        return GetUser::execute($userId);
+        return User::findOrFail($userId);
     }
 
-    public function update(string $userId, array $data): User
+    public function update(string $organizationId, string $userId, array $data): void
     {
-        $user = User::findOrFail($userId);
-
-        return UpdateUser::execute($user, $data);
+        UpdateUser::execute($organizationId, $userId, $data);
     }
 
-    public function destroy(string $userId): void
+    public function destroy(string $organizationId, string $userId): void
     {
-        $user = User::findOrFail($userId);
-
-        DeleteUser::execute($user);
+        DeleteUser::execute($organizationId, $userId);
     }
 }

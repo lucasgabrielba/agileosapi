@@ -2,7 +2,6 @@
 
 namespace Domains\Organizations\Events\Users;
 
-use Domains\Organizations\Models\User;
 use Domains\Shared\Enums\PermissionsEnum;
 use Domains\Shared\Events\DispatchEventsByPermission;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -14,14 +13,14 @@ class UserCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
+    public $userId;
 
     public $organizationId;
 
-    public function __construct(string $organizationId, User $user)
+    public function __construct(string $organizationId, string $userId)
     {
         $this->organizationId = $organizationId;
-        $this->user = $user;
+        $this->userId = $userId;
     }
 
     public function broadcastAs()

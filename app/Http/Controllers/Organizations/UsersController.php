@@ -45,15 +45,19 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, string $organizationId, string $userId)
     {
         $data = $request->validated();
-        $user = $this->usersService->update($userId, $data);
+        $this->usersService->update($organizationId, $userId, $data);
 
-        return response()->json($user);
+        return response()->json([
+            'message' => 'User updated successfully',
+        ]);
     }
 
     public function destroy(string $organizationId, string $userId)
     {
-        $this->usersService->destroy($userId);
+        $this->usersService->destroy($organizationId, $userId);
 
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'User deleted successfully',
+        ], 204);
     }
 }

@@ -4,16 +4,21 @@ namespace Domains\Organizations\Actions\Users;
 
 use Domains\Organizations\Events\Users\UserDeleted;
 use Domains\Organizations\Models\User;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DeleteUser
 {
-    public static function execute(User $user): void
+    public static function execute(string $organizationId, string $userId): void
     {
-        $userId = $user->id;
-        $organizationId = $user->organization->id;
+        try {
+            User::where('id', $userId)->delete();
 
-        $user->delete();
-
-        event(new UserDeleted($organizationId, $userId));
+            event(new UserDeleted($organizationId, $userId));
+        } catch (ModelNotFoundException $e) {
+            throw new Exception('User not found');
+        } catch (Exception $e) {
+            throw new Exception('An error occurred during the delete: '.$e->getMessage());
+        }
     }
 }

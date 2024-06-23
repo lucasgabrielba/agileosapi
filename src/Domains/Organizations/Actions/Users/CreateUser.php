@@ -3,18 +3,18 @@
 namespace Domains\Organizations\Actions\Users;
 
 use Domains\Organizations\Events\Users\UserCreated;
-use Domains\Organizations\Models\Organization;
 use Domains\Organizations\Models\User;
 
 class CreateUser
 {
-    public static function execute(array $data, Organization $organization): User
+    public static function execute(array $data, string $organizationId): User
     {
-        $organization->users()->create($data)->save();
+        $user = User::create([
+            ...$data,
+            'organization_id' => $organizationId,
+        ]);
 
-        $user = $organization->users->last();
-
-        event(new UserCreated($organization->id, $user));
+        event(new UserCreated($organizationId, $user->id));
 
         return $user;
     }
