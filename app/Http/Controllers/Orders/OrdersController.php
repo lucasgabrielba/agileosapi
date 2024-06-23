@@ -45,15 +45,19 @@ class OrdersController extends Controller
     public function update(UpdateOrderRequest $request, string $organizationId, string $orderId)
     {
         $data = $request->validated();
-        $order = $this->ordersService->update($orderId, $data);
+        $this->ordersService->update($organizationId, $orderId, $data);
 
-        return response()->json($order);
+        return response()->json([
+            'message' => 'Order updated successfully',
+        ]);
     }
 
     public function destroy(string $organizationId, string $orderId)
     {
-        $this->ordersService->destroy($orderId);
+        $this->ordersService->destroy($organizationId, $orderId);
 
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'Order deleted successfully',
+        ], 204);
     }
 }

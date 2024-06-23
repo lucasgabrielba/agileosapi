@@ -4,7 +4,6 @@ namespace Domains\Orders\Services;
 
 use Domains\Orders\Actions\Orders\CreateOrder;
 use Domains\Orders\Actions\Orders\DeleteOrder;
-use Domains\Orders\Actions\Orders\GetOrder;
 use Domains\Orders\Actions\Orders\ListOrders;
 use Domains\Orders\Actions\Orders\UpdateOrder;
 use Domains\Orders\Contracts\OrdersServiceInterface;
@@ -30,20 +29,16 @@ class OrdersService implements OrdersServiceInterface
 
     public function get(string $orderId): Order
     {
-        return GetOrder::execute($orderId);
+        return Order::findOrFail($orderId);
     }
 
-    public function update(string $orderId, array $data): Order
+    public function update(string $organizationId, string $orderId, array $data): void
     {
-        $order = Order::findOrFail($orderId);
-
-        return UpdateOrder::execute($order, $data);
+        UpdateOrder::execute($organizationId, $orderId, $data);
     }
 
-    public function destroy(string $orderId): void
+    public function destroy(string $organizationId, string $orderId): void
     {
-        $order = Order::findOrFail($orderId);
-
-        DeleteOrder::execute($order);
+        DeleteOrder::execute($organizationId, $orderId);
     }
 }

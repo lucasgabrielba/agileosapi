@@ -15,10 +15,6 @@ class ListOrders
 
         $orders = $helper->list($filters);
 
-        foreach ($orders as $order) {
-            $order->load('client');
-        }
-
         return $orders;
     }
 }

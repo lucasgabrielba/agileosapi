@@ -2,7 +2,6 @@
 
 namespace Domains\Orders\Events\Orders;
 
-use Domains\Orders\Models\Order;
 use Domains\Shared\Enums\PermissionsEnum;
 use Domains\Shared\Events\DispatchEventsByPermission;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -14,14 +13,14 @@ class OrderCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $order;
+    public $orderId;
 
     public $organizationId;
 
-    public function __construct(string $organizationId, Order $order)
+    public function __construct(string $organizationId, string $orderId)
     {
         $this->organizationId = $organizationId;
-        $this->order = $order;
+        $this->orderId = $orderId;
     }
 
     public function broadcastAs()
