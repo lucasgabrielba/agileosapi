@@ -4,7 +4,6 @@ namespace Domains\Orders\Services;
 
 use Domains\Orders\Actions\Clients\CreateClient;
 use Domains\Orders\Actions\Clients\DeleteClient;
-use Domains\Orders\Actions\Clients\GetClient;
 use Domains\Orders\Actions\Clients\ListClients;
 use Domains\Orders\Actions\Clients\UpdateClient;
 use Domains\Orders\Contracts\ClientsServiceInterface;
@@ -30,20 +29,16 @@ class ClientsService implements ClientsServiceInterface
 
     public function get(string $clientId): Client
     {
-        return GetClient::execute($clientId);
+        return Client::findOrFail($clientId);
     }
 
-    public function update(string $clientId, array $data): Client
+    public function update(string $organizationId, string $clientId, array $data): void
     {
-        $client = Client::findOrFail($clientId);
-
-        return UpdateClient::execute($client, $data);
+        return UpdateClient::execute($organizationId, $clientId, $data);
     }
 
-    public function destroy(string $clientId): void
+    public function destroy(string $organizationId, string $clientId): void
     {
-        $client = Client::findOrFail($clientId);
-
-        DeleteClient::execute($client);
+        DeleteClient::execute($organizationId, $clientId);
     }
 }

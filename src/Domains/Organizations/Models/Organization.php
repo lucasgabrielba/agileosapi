@@ -7,6 +7,7 @@ use Domains\Orders\Models\Item;
 use Domains\Orders\Models\Order;
 use Domains\Organizations\Data\Enums\OrganizationStatus;
 use Domains\Shared\Models\Address;
+use Domains\Shared\Models\Phone;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,15 +30,15 @@ class Organization extends Model
     protected $fillable = [
         'name',
         'email',
-        'phones',
         'document',
         'status',
         'preferences',
         'brand',
     ];
 
+    protected $with = ['phones'];
+
     protected $casts = [
-        'phones' => 'array',
         'preferences' => 'array',
         'brand' => 'array',
         'abilities' => 'array',
@@ -53,7 +54,6 @@ class Organization extends Model
         ];
     }
 
-    // Relationships
     public function users()
     {
         return $this->hasMany(User::class);
@@ -77,5 +77,10 @@ class Organization extends Model
     public function items()
     {
         return $this->hasMany(Item::class);
+    }
+
+    public function phones()
+    {
+        return $this->morphMany(Phone::class, 'phoneable');
     }
 }

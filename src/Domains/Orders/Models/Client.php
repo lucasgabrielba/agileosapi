@@ -4,6 +4,7 @@ namespace Domains\Orders\Models;
 
 use Domains\Organizations\Models\Organization;
 use Domains\Shared\Models\Address;
+use Domains\Shared\Models\Phone;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,21 +27,22 @@ class Client extends Model
     protected $fillable = [
         'name',
         'email',
-        'phones',
         'document',
         'organization_id',
         'address_id',
     ];
 
-    protected $casts = [
-        'phones' => 'array',
-    ];
+    protected $with = ['phones'];
 
     public function toSearchableArray()
     {
+        $array = $this->toArray();
+
+        $array['phones'] = $this->phones->pluck('phone_number')->toArray();
+
         return [
             'name' => $this->name,
-            'phones' => $this->phones,
+            'phones' => $array['phones'],
             'document' => $this->document,
         ];
     }
@@ -58,5 +60,10 @@ class Client extends Model
     public function items()
     {
         return $this->hasMany(Item::class);
+    }
+
+    public function phones()
+    {
+        return $this->morphMany(Phone::class, 'phoneable');
     }
 }

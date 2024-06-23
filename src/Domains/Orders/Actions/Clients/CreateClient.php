@@ -4,50 +4,52 @@ namespace Domains\Orders\Actions\Clients;
 
 use Domains\Orders\Events\Clients\ClientCreated;
 use Domains\Orders\Models\Client;
-use Domains\Organizations\Models\Organization;
 
 class CreateClient
 {
-    public static function execute(array $data, Organization $organization): Client
+    public static function execute(array $data, string $organizationId): Client
     {
-        $client = self::findExistingClient($data, $organization);
+        self::findExistingClient($data, $organizationId);
 
-        if ($client) {
-            self::updateClientAddress($client, $data);
+        $client = Client::create([
+            ...$data,
+            'organization_id' => $organizationId,
+        ]);
 
-            return $client;
-        }
-
-        $client = $organization->clients()->create($data);
         self::createClientAddress($client, $data);
+        self::createClientPhones($client, $data);
 
-        event(new ClientCreated($organization->id, $client));
+        event(new ClientCreated($organizationId, $client->id));
 
         return $client;
     }
 
-    private static function findExistingClient(array $data, Organization $organization): ?Client
+    private static function findExistingClient(array $data, string $organizationId): ?Client
     {
-        foreach ($data['phones'] as $phone) {
-            $client = $organization->clients()
-                ->where('email', $data['email'])
-                ->orWhere('document', $data['document'])
-                ->orWhereJsonContains('phones', $phone)
-                ->first();
+        $client = Client::where('organization_id', $organizationId)
+            ->where(function ($query) use ($data) {
+                $query->where('email', $data['email'])
+                    ->orWhere('document', $data['document']);
+            })
+            ->first();
 
-            if ($client) {
-                throw new \Exception('Client already exists.');
-            }
+        if ($client) {
+            throw new \Exception('Client already exists.');
+        }
+
+        $clientWithPhone = Client::where('organization_id', $organizationId)
+            ->whereHas('phones', function ($query) use ($data) {
+                foreach ($data['phones'] as $phone) {
+                    $query->orWhere('phone_number', $phone);
+                }
+            })
+            ->first();
+
+        if ($clientWithPhone) {
+            throw new \Exception('Client already exists.');
         }
 
         return null;
-    }
-
-    private static function updateClientAddress(Client $client, array $data): void
-    {
-        if (isset($data['address'])) {
-            $client->address()->update($data['address']);
-        }
     }
 
     private static function createClientAddress(Client $client, array $data): void
@@ -56,6 +58,15 @@ class CreateClient
             $client->address()->create($data['address']);
         } else {
             $client->address()->create();
+        }
+    }
+
+    private static function createClientPhones(Client $client, array $data): void
+    {
+        if (isset($data['phones'])) {
+            foreach ($data['phones'] as $phone) {
+                $client->phones()->create(['phone_number' => $phone]);
+            }
         }
     }
 }

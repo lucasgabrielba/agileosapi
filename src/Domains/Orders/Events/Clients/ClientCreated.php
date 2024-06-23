@@ -2,7 +2,6 @@
 
 namespace Domains\Orders\Events\Clients;
 
-use Domains\Orders\Models\Client;
 use Domains\Shared\Enums\PermissionsEnum;
 use Domains\Shared\Events\DispatchEventsByPermission;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -14,14 +13,14 @@ class ClientCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $client;
+    public $clientId;
 
     public $organizationId;
 
-    public function __construct(string $organizationId, Client $client)
+    public function __construct(string $organizationId, string $clientId)
     {
         $this->organizationId = $organizationId;
-        $this->client = $client;
+        $this->clientId = $clientId;
     }
 
     public function broadcastAs()

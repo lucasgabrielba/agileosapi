@@ -45,15 +45,19 @@ class ClientsController extends Controller
     public function update(UpdateClientRequest $request, string $organizationId, string $clientId)
     {
         $data = $request->validated();
-        $client = $this->clientsService->update($clientId, $data);
+        $this->clientsService->update($organizationId, $clientId, $data);
 
-        return response()->json($client);
+        return response()->json([
+            'message' => 'Client updated successfully',
+        ]);
     }
 
     public function destroy(string $organizationId, string $clientId)
     {
-        $this->clientsService->destroy($clientId);
+        $this->clientsService->destroy($organizationId, $clientId);
 
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'Client deleted successfully',
+        ], 204);
     }
 }

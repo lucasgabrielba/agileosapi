@@ -4,17 +4,21 @@ namespace Domains\Orders\Actions\Clients;
 
 use Domains\Orders\Events\Clients\ClientUpdated;
 use Domains\Orders\Models\Client;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdateClient
 {
-    public static function execute(Client $client, array $data): Client
+    public static function execute(string $organizationId, string $clientId, array $data): void
     {
-        $client->update($data);
+        try {
+            Client::where('id', $clientId)->update($data);
 
-        $organizationId = $client->organization_id;
-
-        event(new ClientUpdated($organizationId, $client));
-
-        return $client;
+            event(new ClientUpdated($organizationId, $clientId));
+        } catch (ModelNotFoundException $e) {
+            throw new Exception('Client not found');
+        } catch (Exception $e) {
+            throw new Exception('An error occurred during the update: '.$e->getMessage());
+        }
     }
 }
