@@ -2,7 +2,6 @@
 
 namespace Domains\Organizations\Events\Organizations;
 
-use Domains\Organizations\Models\Organization;
 use Domains\Shared\Enums\PermissionsEnum;
 use Domains\Shared\Events\DispatchEventsByPermission;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -14,11 +13,11 @@ class OrganizationUpdated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $organization;
+    public $organizationId;
 
-    public function __construct(Organization $organization)
+    public function __construct(string $organizationId)
     {
-        $this->organization = $organization;
+        $this->organizationId = $organizationId;
     }
 
     public function broadcastAs()
@@ -29,7 +28,7 @@ class OrganizationUpdated implements ShouldBroadcast
     public function broadcastOn()
     {
         return DispatchEventsByPermission::execute(
-            $this->organization->id,
+            $this->organizationId,
             PermissionsEnum::EDIT_ORGANIZATIONS
         );
     }

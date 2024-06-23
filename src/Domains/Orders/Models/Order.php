@@ -82,10 +82,27 @@ class Order extends Model
 
     public function toSearchableArray()
     {
+        $client = $this->client()->first();
+        $items = $this->items;
+
         return [
+            'number' => $this->number,
             'problem_description' => $this->problem_description,
             'budget_description' => $this->budget_description,
             'internal_notes' => $this->internal_notes,
+            'client_name' => $client ? $client->name : null,
+            'client_phones' => $client ? $client->phones : null,
+            'items' => $items->map(function ($item) {
+                return [
+                    'brand' => $item->brand,
+                    'model' => $item->model,
+                    'serial' => $item->serial,
+                ];
+            })->toArray(),
+            'organization_id' => $this->organization_id,
+            'status' => $this->status,
+            'user_id' => $this->user_id,
+            'client_id' => $this->client_id,
         ];
     }
 

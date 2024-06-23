@@ -45,15 +45,19 @@ class OrganizationsController extends Controller
     public function update(UpdateOrganizationRequest $request, $organizationId)
     {
         $data = $request->validated();
-        $organization = $this->organizationsService->update($organizationId, $data);
+        $$this->organizationsService->update($organizationId, $data);
 
-        return response()->json($organization);
+        return response()->json([
+            'message' => 'Organization updated successfully',
+        ]);
     }
 
     public function destroy($organizationId)
     {
         $this->organizationsService->destroy($organizationId);
 
-        return response()->json(null, 204);
+        return response()->json([
+            'message' => 'Organization deleted successfully',
+        ], 204);
     }
 }

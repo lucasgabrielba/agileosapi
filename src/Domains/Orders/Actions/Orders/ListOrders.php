@@ -11,9 +11,13 @@ class ListOrders
 {
     public static function execute(Organization $organization, array $filters): LengthAwarePaginator
     {
-        $helper = new ListDataHelper(new Order, $organization);
+        $helper = new ListDataHelper(new Order);
 
         $orders = $helper->list($filters);
+
+        foreach ($orders as $order) {
+            $order->load('client');
+        }
 
         return $orders;
     }

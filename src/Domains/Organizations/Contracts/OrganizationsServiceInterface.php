@@ -13,7 +13,7 @@ interface OrganizationsServiceInterface
 
     public function get(string $organizationId): Organization;
 
-    public function update(string $organizationId, array $data): Organization;
+    public function update(string $organizationId, array $data): void;
 
     public function destroy(string $organizationId): void;
 }
