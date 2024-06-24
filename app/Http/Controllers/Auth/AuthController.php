@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Domains\Organizations\Data\Enums\UserStatus;
+use Domains\Organizations\Enums\UserStatus;
 use Domains\Organizations\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,7 +24,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'status' => UserStatus::ACTIVE->value,
+            'status' => UserStatus::ACTIVE,
         ]);
 
         return response()->json(['message' => 'User registered successfully'], 201);

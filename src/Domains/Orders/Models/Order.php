@@ -2,7 +2,7 @@
 
 namespace Domains\Orders\Models;
 
-use Domains\Orders\Data\Enums\OrderStatus;
+use Domains\Orders\Enums\OrderStatus;
 use Domains\Organizations\Models\Organization;
 use Domains\Organizations\Models\User;
 use Domains\Shared\Traits\FiltersNullValues;

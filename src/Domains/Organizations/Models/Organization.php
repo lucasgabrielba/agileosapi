@@ -5,7 +5,7 @@ namespace Domains\Organizations\Models;
 use Domains\Orders\Models\Client;
 use Domains\Orders\Models\Item;
 use Domains\Orders\Models\Order;
-use Domains\Organizations\Data\Enums\OrganizationStatus;
+use Domains\Organizations\Enums\OrganizationStatus;
 use Domains\Shared\Models\Address;
 use Domains\Shared\Models\Phone;
 use Domains\Shared\Traits\FiltersNullValues;

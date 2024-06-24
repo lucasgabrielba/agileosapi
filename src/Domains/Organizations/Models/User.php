@@ -2,7 +2,7 @@
 
 namespace Domains\Organizations\Models;
 
-use Domains\Organizations\Data\Enums\UserStatus;
+use Domains\Organizations\Enums\UserStatus;
 use Domains\Shared\Traits\FiltersNullValues;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

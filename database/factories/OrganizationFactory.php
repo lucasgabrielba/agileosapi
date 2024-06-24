@@ -16,7 +16,6 @@ class OrganizationFactory extends Factory
             'id' => str()->uuid(),
             'name' => fake()->company(),
             'email' => fake()->companyEmail(),
-            'phones' => [fake()->phoneNumber()],
             'document' => fake()->ein(),
             'status' => OrganizationStatus::ACTIVE,
         ];

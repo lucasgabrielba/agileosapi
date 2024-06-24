@@ -9,9 +9,10 @@ class CreatePhonesTable extends Migration
     public function up()
     {
         Schema::create('phones', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('phone_number');
-            $table->morphs('phoneable'); // Polimórfico: phoneable_id e phoneable_type
+            $table->uuidMorphs('phoneable'); // Polimórfico: phoneable_id e phoneable_type
+            $table->softDeletes();
             $table->timestamps();
         });
     }
