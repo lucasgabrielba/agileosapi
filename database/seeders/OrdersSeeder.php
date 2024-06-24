@@ -21,6 +21,12 @@ class OrdersSeeder extends Seeder
             'organization_id' => $organization->id,
         ]);
 
+        foreach ($clients as $client) {
+            $client->phones()->create([
+                'phone_number' => '(11)99999-9999',
+            ]);
+        }
+
         $items = ItemFactory::new()->count(10)->create([
             'organization_id' => $organization->id,
             'client_id' => $clients->random()->id,

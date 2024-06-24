@@ -36,8 +36,6 @@ class Organization extends Model
         'brand',
     ];
 
-    protected $with = ['phones'];
-
     protected $casts = [
         'preferences' => 'array',
         'brand' => 'array',

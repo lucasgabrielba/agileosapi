@@ -32,13 +32,14 @@ class Client extends Model
         'address_id',
     ];
 
-    protected $with = ['phones'];
-
     public function toSearchableArray()
     {
         $array = $this->toArray();
 
-        $array['phones'] = $this->phones->pluck('phone_number')->toArray();
+        $array['phones'] = $this->phones()
+            ->select('phone_number')
+            ->get()
+            ->toArray();
 
         return [
             'name' => $this->name,

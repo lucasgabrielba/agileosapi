@@ -31,7 +31,7 @@ class CreateClient
                 $query->where('email', $data['email'])
                     ->orWhere('document', $data['document']);
             })
-            ->first();
+            ->exists();
 
         if ($client) {
             throw new \Exception('Client already exists.');
@@ -40,10 +40,10 @@ class CreateClient
         $clientWithPhone = Client::where('organization_id', $organizationId)
             ->whereHas('phones', function ($query) use ($data) {
                 foreach ($data['phones'] as $phone) {
-                    $query->orWhere('phone_number', $phone);
+                    $query->where('phone_number', 'LIKE', "%{$phone}%");
                 }
             })
-            ->first();
+            ->exists();
 
         if ($clientWithPhone) {
             throw new \Exception('Client already exists.');

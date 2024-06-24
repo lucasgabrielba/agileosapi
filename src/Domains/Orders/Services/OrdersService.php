@@ -22,9 +22,7 @@ class OrdersService implements OrdersServiceInterface
 
     public function create(string $organizationId, array $data)
     {
-        $organization = Organization::findOrFail($organizationId);
-
-        return CreateOrder::execute($data, $organization);
+        return CreateOrder::execute($data, $organizationId);
     }
 
     public function get(string $orderId): Order

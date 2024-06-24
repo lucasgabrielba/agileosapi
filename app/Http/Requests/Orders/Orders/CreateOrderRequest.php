@@ -48,7 +48,7 @@ class CreateOrderRequest extends FormRequest
 
             'problem_description' => 'sometimes|string',
 
-            'priority' => 'nullable|in:normal,high',
+            'priority' => 'nullable|in:Normal,Alta',
             'attachments' => 'nullable|json',
         ];
     }
@@ -64,7 +64,7 @@ class CreateOrderRequest extends FormRequest
 
             'problem_description.required' => 'A descrição do problema é obrigatória.',
             'priority.required' => 'A prioridade é obrigatória.',
-            'priority.in' => 'A prioridade deve ser normal ou high.',
+            'priority.in' => 'A prioridade deve ser Normal ou Alta.',
         ];
     }
 }

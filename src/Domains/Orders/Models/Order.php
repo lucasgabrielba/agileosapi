@@ -55,14 +55,14 @@ class Order extends Model
         parent::boot();
 
         static::creating(function ($order) {
-            $organization = Organization::find($order->organization_id);
-            $user = User::find($order->user_id);
+            $user = User::where('id', $order->user_id)->select('name')->first();
 
-            $lastOrder = $organization->orders()->orderBy('number', 'desc')->first();
+            $lastOrder = Order::where('organization_id', $order->organization_id)
+                ->orderBy('number', 'desc')
+                ->select('number')
+                ->first();
+
             $nextNumber = $lastOrder ? $lastOrder->number + 1 : 1;
-
-            $order->organization_id = $organization->id;
-            $order->user_id = $user->id;
 
             $order->number = $nextNumber;
             $order->status = OrderStatus::OPEN;
@@ -73,16 +73,13 @@ class Order extends Model
                     'date' => now()->toDateTimeString(),
                 ],
             ];
-
-            if ($order->is_reentry) {
-                $order->status = OrderStatus::REENTRY;
-            }
         });
     }
 
     public function toSearchableArray()
     {
-        $client = $this->client()->first();
+        $client = $this->client()->select('name')->first();
+        $clientPhones = $client ? $client->phones()->select('phone_number')->get()->toArray() : null;
         $items = $this->items;
 
         return [
@@ -91,7 +88,7 @@ class Order extends Model
             'budget_description' => $this->budget_description,
             'internal_notes' => $this->internal_notes,
             'client_name' => $client ? $client->name : null,
-            'client_phones' => $client ? $client->phones : null,
+            'client_phones' => $client ? $clientPhones : null,
             'items' => $items->map(function ($item) {
                 return [
                     'brand' => $item->brand,

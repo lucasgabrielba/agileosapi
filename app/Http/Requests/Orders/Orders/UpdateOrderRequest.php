@@ -26,7 +26,7 @@ class UpdateOrderRequest extends FormRequest
             'estimated_date' => 'nullable|date',
             'end_of_warranty_date' => 'nullable|date',
             'is_reentry' => 'sometimes|required|boolean',
-            'priority' => 'sometimes|required|in:normal,high',
+            'priority' => 'sometimes|required|in:Normal,Alta',
             'status' => 'sometimes|required|string|max:255',
             'attachments' => 'nullable|json',
         ];
@@ -43,7 +43,7 @@ class UpdateOrderRequest extends FormRequest
             'created_at.required' => 'A data de criação é obrigatória.',
             'is_reentry.required' => 'É necessário informar se é uma reentrada.',
             'priority.required' => 'A prioridade é obrigatória.',
-            'priority.in' => 'A prioridade deve ser normal ou high.',
+            'priority.in' => 'A prioridade deve ser Normal ou Alta.',
             'status.required' => 'O status é obrigatório.',
         ];
     }

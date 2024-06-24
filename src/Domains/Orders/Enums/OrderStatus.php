@@ -4,10 +4,10 @@ namespace Domains\Orders\Enums;
 
 enum OrderStatus: string
 {
-    case OPEN = 'open';
-    case CLOSED = 'closed';
+    case OPEN = 'Aberto';
+    case CLOSED = 'Fechado';
 
-    case REENTRY = 'reentry';
-    case PENDING = 'pending';
-    case CANCELED = 'canceled';
+    case REENTRY = 'Reentrada';
+    case PENDING = 'Pendente';
+    case CANCELED = 'Cancelado';
 }

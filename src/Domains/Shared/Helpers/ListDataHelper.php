@@ -11,7 +11,7 @@ class ListDataHelper
     /**
      * @var array|string[]
      *
-     * @example include, search, order, per_page, page
+     * @example include, search, order, per_page, page, select
      */
     protected array $keyWords = [
         'include',
@@ -19,6 +19,7 @@ class ListDataHelper
         'order',
         'per_page',
         'page',
+        'select',
     ];
 
     protected array $parameters = [];
@@ -40,6 +41,11 @@ class ListDataHelper
     {
         $query = $this->startQuery();
 
+        // Handle includes (eager loading)
+        if (isset($filter['include'])) {
+            $this->handleIncludes($query, $filter['include']);
+        }
+
         // Handle search in Laravel Scout
         if (isset($filter['search'])) {
             $this->searchInScout($query, $filter['search']);
@@ -48,9 +54,9 @@ class ListDataHelper
         // Handle additional filters like ?email=john.doe@example.com
         $this->searchBySpecificFields($query, $filter);
 
-        if ($selectAttributes) {
-            // Restrict SELECT and remove * from query
-            $this->selectFields($query, $selectAttributes);
+        // Handle select: &select=name,email,document
+        if (isset($filter['select'])) {
+            $this->handleSelect($query, $filter['select']);
         }
 
         // Handle order: &order=-created_at,status
@@ -177,5 +183,17 @@ class ListDataHelper
             $direction = Str::startsWith($order, '-') ? 'desc' : 'asc';
             $query->orderBy($this->mapParameter(ltrim($order, '-')), $direction);
         }
+    }
+
+    protected function handleIncludes($query, $includes)
+    {
+        $relationships = explode(',', $includes);
+        $query->with($relationships);
+    }
+
+    protected function handleSelect($query, $select)
+    {
+        $selectAttributes = explode(',', $select);
+        $this->selectFields($query, $selectAttributes);
     }
 }

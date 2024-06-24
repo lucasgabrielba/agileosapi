@@ -31,7 +31,7 @@ class OrderFactory extends Factory
             'estimated_date' => $this->faker->dateTimeBetween('now', '+1 month'),
             'end_of_warranty_date' => $this->faker->dateTimeBetween('now', '+3 month'),
             'is_reentry' => false,
-            'priority' => $this->faker->randomElement(['normal', 'high']),
+            'priority' => $this->faker->randomElement(['Normal', 'Alta']),
             'client_id' => ClientFactory::new()->create()->id,
             'organization_id' => OrganizationFactory::new()->create()->id,
             'user_id' => UserFactory::new()->create()->id,

@@ -5,6 +5,7 @@ namespace Domains\Orders\Actions\Orders;
 use Domains\Orders\Actions\Clients\CreateClient;
 use Domains\Orders\Actions\Items\CreateItem;
 use Domains\Orders\Events\Orders\OrderCreated;
+use Domains\Orders\Models\Order;
 use Domains\Organizations\Models\Organization;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -68,37 +69,39 @@ class CreateOrder
         $user = auth()->user();
         $orders = [];
 
-        $organization = Organization::findOrFail($organizationId)
-            ->select('preferences');
+        $organization = Organization::where('id', $organizationId)
+            ->select('preferences')->first();
 
         if ($organization->preferences['multiple_items_per_order']) {
-            $orders[] = $organization->orders()->create([
+            $orders[] = Order::create([
                 ...$data,
                 'client_id' => $clientId,
                 'user_id' => $user->id,
                 'items' => collect($itemsAndProblems)->pluck('item_id')->toArray(),
+                'organization_id' => $organizationId,
             ]);
         } else {
             foreach ($itemsAndProblems as $item) {
-                $orders[] = $organization->orders()->create([
+                $orders[] = Order::create([
                     ...$data,
                     'client_id' => $clientId,
                     'user_id' => $user->id,
                     'items' => [$item['item_id']],
                     'problem_description' => $item['problem_description'],
+                    'organization_id' => $organizationId,
                 ]);
             }
         }
 
-        self::dispatchOrderCreatedEvent($orders, $organization);
+        self::dispatchOrderCreatedEvent($orders, $organizationId);
 
         return collect($orders)->pluck('number')->toArray();
     }
 
-    private static function dispatchOrderCreatedEvent(array $orders, Organization $organization): void
+    private static function dispatchOrderCreatedEvent(array $orders, string $organizationId): void
     {
         foreach ($orders as $order) {
-            event(new OrderCreated($organization->id, $order->id));
+            event(new OrderCreated($organizationId, $order->id));
         }
     }
 }

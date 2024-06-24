@@ -4,7 +4,7 @@ namespace Domains\Organizations\Enums;
 
 enum OrganizationStatus: string
 {
-    case ACTIVE = 'active';
-    case INACTIVE = 'inactive';
-    case FREE_TRIAL = 'free_trial';
+    case ACTIVE = 'Ativo';
+    case INACTIVE = 'Inativo';
+    case FREE_TRIAL = 'Teste gratuito';
 }
