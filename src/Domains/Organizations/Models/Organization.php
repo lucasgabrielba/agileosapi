@@ -54,6 +54,11 @@ class Organization extends Model
         ];
     }
 
+    public function phones()
+    {
+        return $this->morphMany(Phone::class, 'phoneable');
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);
@@ -77,10 +82,5 @@ class Organization extends Model
     public function items()
     {
         return $this->hasMany(Item::class);
-    }
-
-    public function phones()
-    {
-        return $this->morphMany(Phone::class, 'phoneable');
     }
 }

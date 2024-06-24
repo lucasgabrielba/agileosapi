@@ -20,7 +20,6 @@ class CreateOrganizationsTable extends Migration
 
             $table->string('name');
             $table->string('email');
-            $table->json('phones');
             $table->string('document')->nullable();
             $table->json('preferences')->nullable();
             $table->json('brand')->nullable();

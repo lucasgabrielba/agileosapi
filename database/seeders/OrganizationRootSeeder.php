@@ -30,7 +30,6 @@ class OrganizationRootSeeder extends Seeder
             'id' => '9c416fda-efd3-469c-a42f-3f7910685fd0',
             'name' => 'Root Organization',
             'email' => 'root@root.com',
-            'phones' => ['(11)99999-9999'],
             'status' => OrganizationStatus::ACTIVE->value,
             'address_id' => $address->id,
 
@@ -46,6 +45,10 @@ class OrganizationRootSeeder extends Seeder
             'abilities' => [
                 'Dashboard', 'Orders', 'Clients', 'Settings', 'Reports',
             ],
+        ]);
+
+        $organization->phones()->create([
+            'phone_number' => '(11)99999-9999',
         ]);
 
         $user = UserFactory::new()->create([
