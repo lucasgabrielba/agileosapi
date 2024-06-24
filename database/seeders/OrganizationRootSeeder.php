@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use Database\Factories\AddressFactory;
 use Database\Factories\OrganizationFactory;
 use Database\Factories\UserFactory;
-use Domains\Organizations\Data\Enums\OrganizationStatus;
-use Domains\Organizations\Data\Enums\UserStatus;
+use Domains\Organizations\Enums\OrganizationStatus;
+use Domains\Organizations\Enums\UserStatus;
 use Illuminate\Database\Seeder;
 
 class OrganizationRootSeeder extends Seeder
@@ -30,7 +30,7 @@ class OrganizationRootSeeder extends Seeder
             'id' => '9c416fda-efd3-469c-a42f-3f7910685fd0',
             'name' => 'Root Organization',
             'email' => 'root@root.com',
-            'status' => OrganizationStatus::ACTIVE->value,
+            'status' => OrganizationStatus::ACTIVE,
             'address_id' => $address->id,
 
             'preferences' => [
@@ -56,7 +56,7 @@ class OrganizationRootSeeder extends Seeder
             'name' => 'Root User',
             'email' => 'root@root.com',
             'password' => bcrypt('root'),
-            'status' => UserStatus::ACTIVE->value,
+            'status' => UserStatus::ACTIVE,
             'organization_id' => $organization->id,
         ]);
 

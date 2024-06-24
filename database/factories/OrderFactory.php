@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use Domains\Orders\Data\Enums\OrderStatus;
+use Domains\Orders\Enums\OrderStatus;
 use Domains\Orders\Models\Order;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class OrderFactory extends Factory
 {
@@ -14,7 +13,7 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            'id' => (string) Str::uuid(),
+            'id' => str()->uuid(),
             'number' => $this->faker->unique()->numberBetween(1, 1000),
             'status' => OrderStatus::OPEN,
             'items' => ItemFactory::new()->count($this->faker->numberBetween(1, 5))->create()->pluck('id')->toArray(),

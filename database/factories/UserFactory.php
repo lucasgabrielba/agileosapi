@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use Domains\Organizations\Data\Enums\UserStatus;
+use Domains\Organizations\Enums\UserStatus;
 use Domains\Organizations\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -17,12 +17,13 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'id' => str()->uuid(),
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => self::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'status' => UserStatus::ACTIVE->value,
+            'status' => UserStatus::ACTIVE,
         ];
     }
 
@@ -33,11 +34,11 @@ class UserFactory extends Factory
 
     public function active(): static
     {
-        return $this->state(fn () => ['status' => UserStatus::ACTIVE->value]);
+        return $this->state(fn () => ['status' => UserStatus::ACTIVE]);
     }
 
     public function inactive(): static
     {
-        return $this->state(fn () => ['status' => UserStatus::INACTIVE->value]);
+        return $this->state(fn () => ['status' => UserStatus::INACTIVE]);
     }
 }

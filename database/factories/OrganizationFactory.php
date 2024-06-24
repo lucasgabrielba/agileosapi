@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use Domains\Organizations\Data\Enums\OrganizationStatus;
+use Domains\Organizations\Enums\OrganizationStatus;
 use Domains\Organizations\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class OrganizationFactory extends Factory
 {
@@ -14,22 +13,22 @@ class OrganizationFactory extends Factory
     public function definition()
     {
         return [
-            'id' => (string) Str::uuid(),
+            'id' => str()->uuid(),
             'name' => fake()->company(),
             'email' => fake()->companyEmail(),
             'phones' => [fake()->phoneNumber()],
             'document' => fake()->ein(),
-            'status' => OrganizationStatus::ACTIVE->value,
+            'status' => OrganizationStatus::ACTIVE,
         ];
     }
 
     public function active(): static
     {
-        return $this->state(fn () => ['status' => OrganizationStatus::ACTIVE->value]);
+        return $this->state(fn () => ['status' => OrganizationStatus::ACTIVE]);
     }
 
     public function inactive(): static
     {
-        return $this->state(fn () => ['status' => OrganizationStatus::INACTIVE->value]);
+        return $this->state(fn () => ['status' => OrganizationStatus::INACTIVE]);
     }
 }

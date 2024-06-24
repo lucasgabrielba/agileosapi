@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Domains\Orders\Models\Item;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class ItemFactory extends Factory
 {
@@ -13,7 +12,7 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            'id' => (string) Str::uuid(),
+            'id' => str()->uuid(),
             'type' => $this->faker->word,
             'model' => $this->faker->word,
             'serial' => $this->faker->unique()->numerify('SN########'),

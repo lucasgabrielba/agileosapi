@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Domains\Shared\Models\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 class AddressFactory extends Factory
 {
@@ -13,7 +12,7 @@ class AddressFactory extends Factory
     public function definition()
     {
         return [
-            'id' => (string) Str::uuid(),
+            'id' => str()->uuid(),
             'street' => fake()->streetName(),
             'number' => fake()->buildingNumber(),
             'complement' => fake()->secondaryAddress(),

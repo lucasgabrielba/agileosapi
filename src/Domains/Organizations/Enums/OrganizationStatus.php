@@ -1,6 +1,6 @@
 <?php
 
-namespace Domains\Organizations\Data\Enums;
+namespace Domains\Organizations\Enums;
 
 enum OrganizationStatus: string
 {
